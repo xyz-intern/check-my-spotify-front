@@ -23,9 +23,8 @@ const Login = () => {
     Cookies.remove('refreshToken');
     Cookies.remove('userId');
   }
-
   return (
-    <div>
+    <div> 
       <button onClick={axiosRequest}>
         Spotify Login !!!
       </button>

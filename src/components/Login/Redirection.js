@@ -11,10 +11,11 @@ const Redirection = () => {
 
     let refreshToken;
     let userId;
+
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`http://localhost:3000/callback?code=${code}&state=${state}`, { withCredentials: true });
+            await axios.get(`http://localhost:3000/callback?code=${code}&state=${state}`, { withCredentials: true });
             console.log('good');
             is_throw = true;
           } catch (error) {
