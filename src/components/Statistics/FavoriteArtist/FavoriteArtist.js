@@ -9,7 +9,7 @@ const FavoriteArtist = () => {
     }, []);
 
     const fetchArtists = () => {
-        axios.get('http://localhost:3000/last/song')
+        axios.get('http://localhost:3000/heard/artists')
             .then(response => {
                 setArtist(response.data);
             })

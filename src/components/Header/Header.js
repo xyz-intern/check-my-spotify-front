@@ -17,7 +17,7 @@ const Header = () => {
             </li>
 
             <li>
-                <Link to = "/login">로그인</Link>
+                <Link to = "/callback">로그인</Link>
             </li>
         </ul>
     )

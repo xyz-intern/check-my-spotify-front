@@ -6,6 +6,7 @@ function List(props) {
             <img src={props.imageUri}></img>
             <div>albumName: {props.albumName}</div>
             <div>count: {props.count}</div>
+            <div>---------------------</div>
         </div>
     );
 }

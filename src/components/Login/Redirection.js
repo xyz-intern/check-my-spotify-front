@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { useContext } from 'react';
+import { AppContext, UserContext } from '../../App';
 
 const Redirection = () => {
-    const code = new URL(document.location.toString()).searchParams.get('code');
-    const state = new URL(document.location.toString()).searchParams.get('state');
-
+    const code = useContext(AppContext);
+    const state = useContext(UserContext);
+  
     let is_throw = false;
     let is_error = false;
 
@@ -30,7 +32,6 @@ const Redirection = () => {
           clearInterval(interval);
         };
       }, []);
-      
 
       const reissueToken = async () => {
         try {
@@ -42,10 +43,10 @@ const Redirection = () => {
           console.log(error);
         }
       };
+
     return (
         <div>
             <div>{is_throw ? (is_error ? "데이터를 전송 중입니다." : "에러 발생") : "데이터를 성공적으로 전송하였습니다."}</div>
-            {/* <button onClick={reissueToken}>refreshToken 재발급</button> */}
         </div>
     )
 };

@@ -21,6 +21,7 @@ const LastSong = () => {
 
     return (
         <div>
+            {console.log(lastSong)}
             {lastSong.map((song) => (
                 <List
                     key={song.songId}
