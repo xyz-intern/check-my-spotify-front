@@ -3,13 +3,11 @@ import { Link } from 'react-router-dom'
 import '../Header/Header.css'
 import styled from "styled-components";
 
-
 const Headers = styled.header`
     top: 0;
     width: 100%;
     height : 60px;
     display: flex;
-    background-color: #1C0F13;
 `
 
 const Li = styled.li`
@@ -21,26 +19,26 @@ const Li = styled.li`
 
 const Text = styled.a`
     text-decoration: none;
-    color: white;
+    color: black;
 `
 
 const Header = () => {
     return (
         <Headers>
             <Li>
-                <Link to="/last/song"><Text>최근에 들은 노래</Text></Link>
+                <Link to="/last/song"><Text>Last Stream</Text></Link>
             </Li>
 
             <Li>
-                <Link to="/favorite/song"><Text>가장 많이 들은 노래</Text></Link>
+                <Link to="/favorite/song"><Text>Most Stream</Text></Link>
             </Li>
 
             <Li>
-                <Link to="/favorite/artist"><Text>가장 많이 들은 아티스트</Text></Link>
+                <Link to="/favorite/artist"><Text>FavoriteArtist</Text></Link>
             </Li>
 
             <Li>
-                <Link to="/callback"><Text>로그인</Text></Link>
+                <Link to="/callback"><Text>Login</Text></Link>
             </Li>
         </Headers>
     )

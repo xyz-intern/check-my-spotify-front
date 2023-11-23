@@ -28,7 +28,7 @@ const PopularSong = () => {
                     rank={song.rank}
                     artist={song.artist}
                     songName={song.trackName}
-                    imageUri= {song.imageUri}
+                    imageUri= {song.albumImage}
                 />
             ))}
         </div>
