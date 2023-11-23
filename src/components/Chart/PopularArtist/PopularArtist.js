@@ -6,9 +6,9 @@ import styled from 'styled-components';
 const ScrollContainer = styled.div`
     display: flex;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    /* /* scroll-snap-type: x mandatory; */
     -webkit-overflow-scrolling: touch;
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; 
 `;
 
 const ScrollItem = styled.div`

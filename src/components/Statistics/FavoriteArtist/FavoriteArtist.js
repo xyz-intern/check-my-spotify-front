@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import axios from 'axios';
 import List from '../List/List';
 import URL from '../../../store/constant/constant';
+import ArtistList from '../List/ArtistList';
 const FavoriteArtist = () => {
     const [artist, setArtist] = useState([]);
 
@@ -22,8 +23,8 @@ const FavoriteArtist = () => {
     return (
         <div>
             {artist.map((song) => (
-                <List
-                    type="artist"
+                <ArtistList
+                    key={song.songId}
                     artistName={song.artistName}
                     count={song.playCount}
                 />
