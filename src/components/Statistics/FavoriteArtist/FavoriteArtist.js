@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
-import List from '../List/List';
 import URL from '../../../store/constant/constant';
 import ArtistList from '../List/ArtistList';
 const FavoriteArtist = () => {
