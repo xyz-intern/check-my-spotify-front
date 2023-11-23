@@ -22,13 +22,9 @@ const FavoriteArtist = () => {
         <div>
             {artist.map((song) => (
                 <List
-                    key={song.songId}
-                    id={song.songId}
+                    type="artist"
                     artistName={song.artistName}
-                    songName={song.songName}
-                    imageUri={song.imageUri}
-                    albumName={song.albumName}
-                    count={song.count}
+                    count={song.playCount}
                 />
             ))}
         </div>

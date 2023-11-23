@@ -1,8 +1,27 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState , useRef } from 'react';
 import ChartList from '../ChartList/ChartList';
+import styled from 'styled-components';
+
+const ScrollContainer = styled.div`
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+`;
+
+const ScrollItem = styled.div`
+    flex: none;
+    scroll-snap-align: start;
+    margin-right: 100px;
+    max-width: 350px;
+    width: 100%;
+    height: 100%;
+`;
 
 const PopularArtist = () => {
+    const scrollRef = useRef(null);
     const [popularArtist, setPopularArtist] = useState([]);
 
     useEffect(() => {
@@ -20,17 +39,18 @@ const PopularArtist = () => {
     }
 
     return (
-        <div>
+        <ScrollContainer ref={scrollRef}>
             {popularArtist.map((data) => (
-                <ChartList
-                    key={data.rank}
-                    type="artist"
-                    rank={data.rank}
-                    artist={data.artist}
-                    imageUri={data.imageUri}
-                />
+                <ScrollItem key={data.rank}>
+                    <ChartList
+                        type="artist"
+                        rank={data.rank}
+                        artist={data.artist}
+                        imageUri={data.imageUri}
+                    />
+                </ScrollItem>
             ))}
-        </div>
+        </ScrollContainer>
     );
 }
 

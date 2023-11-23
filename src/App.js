@@ -5,7 +5,7 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-
+import PopularArtist from './components/Chart/PopularArtist/PopularArtist';
 import Artist from './components/Statistics/FavoriteArtist/FavoriteArtist'
 import FavoriteSong from './components/Statistics/FavoriteSong/FavoriteSong'
 import LastSong from './components/Statistics/LastSong/LastSong';
@@ -14,7 +14,6 @@ import Redirection from './components/Login/Redirection'
 
 export const AppContext = createContext();
 export const UserContext = createContext();
-
 function App() {
   const [code, setCode] = useState(new URL(document.location.toString()).searchParams.get('code'));
   const [state, setState] = useState(new URL(document.location.toString()).searchParams.get('state'));
@@ -34,8 +33,7 @@ function App() {
         </BrowserRouter>
         </UserContext.Provider>
       </AppContext.Provider>
-      {/* <PopularArtist />
-      <PopularSong /> */}
+      <PopularArtist /> 
     </div>
   );
 }
