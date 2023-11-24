@@ -2,14 +2,13 @@ import axios from 'axios';
 import { useEffect, useState , useRef } from 'react';
 import ChartList from '../ChartList/ChartList';
 import styled, { keyframes } from 'styled-components';
-import { gsap } from 'gsap/gsap-core';
 
 const ScrollContainer = styled.div`
     width: 100%;
-    overflow: hidden;
     position: relative;
     display: flex;
-    top: 5%;
+    top: 10%;
+    overflow: hidden;
 `
 const BannerMove = keyframes`
     from { transform: translateX(0px); }
@@ -18,29 +17,34 @@ const BannerMove = keyframes`
 
 const Article = styled.div`
     display: flex;
-    width: 400%;
-    white-space: nowrap;    
-    animation: ${BannerMove} 400s linear infinite;
-    // animation-iteration-count: infinite;
-    position: relative;
+    width: fit-content;
+    transition: transform 2s ease-in-out;
 `
 
 const ScrollItem = styled.div`
-    display: flex;    
-    flex: none;
-    margin-right: 100px;
-    max-width: 350px;
-    width: 100%;
-    height: 100%;
+    width: 472px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const PopularArtist = () => {
     const scrollRef = useRef(null);
     const [popularArtist, setPopularArtist] = useState([]);
+    const [slideIndex, setSlideIndex] = useState(0);
+
+    const totalSlides = 47;
+    const slideDuration = 2000;
     
     useEffect(() => {
         fetchLastSong();
-    }, []);
+        const interval = setInterval(() => {
+            const nextIndex = (slideIndex + 1) % totalSlides;
+            setSlideIndex(nextIndex);
+          }, slideDuration);
+        return () => clearInterval(interval);
+    },  [slideIndex, totalSlides, slideDuration] );
 
 
     const fetchLastSong = () => {
@@ -56,20 +60,11 @@ const PopularArtist = () => {
     return (
 
             <ScrollContainer ref={scrollRef}>
-                <Article>
+                <Article
+                style={{ transform: `translateX(-${slideIndex * 472}px)` }}
+                >
                 {popularArtist.map((data) => (
                     <ScrollItem key={data.rank} className='box'>
-                        <ChartList
-                            type="artist"
-                            rank={data.rank}
-                            artist={data.artist}
-                            imageUri={data.imageUri}
-                            />
-                    </ScrollItem>
-                ))}
-
-                {popularArtist.map((data) => (
-                    <ScrollItem key={data.rank+50} className='box'>
                         <ChartList
                             type="artist"
                             rank={data.rank}
