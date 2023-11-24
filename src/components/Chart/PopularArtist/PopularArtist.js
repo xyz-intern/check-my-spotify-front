@@ -3,69 +3,49 @@ import { useEffect, useState , useRef } from 'react';
 import ChartList from '../ChartList/ChartList';
 import styled, { keyframes } from 'styled-components';
 
-
-// const ScrollContainer = styled.div`
-//     display: flex;
-//     overflow-x: auto;
-//     /* /* scroll-snap-type: x mandatory; */
-//     -webkit-overflow-scrolling: touch;
-//     scroll-behavior: smooth; 
-// `;
-
 const ScrollContainer = styled.div`
     width: 100%;
+    position: relative;
+    display: flex;
+    top: 10%;
     overflow: hidden;
-    position: reletive;
-
-    &::after {
-        width: 1000%;
-        
-    }
-`;
-
+`
 const BannerMove = keyframes`
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+    from { transform: translateX(0px); }
+    to   { transform: translateX(-22560px); }
 `
 
 const Article = styled.div`
     display: flex;
-    width: 3000%;
-    animation: ${BannerMove} 100s linear infinite;
-    white-space: nowrap;
-    position: reletive;
+    width: fit-content;
+    transition: transform 2s ease-in-out;
 `
-    
-// const ScrollItem = styled.div`
-//     flex: none;
-//     scroll-snap-align: start;
-//     margin-right: 100px;
-//     max-width: 350px;
-//     width: 100%;
-//     height: 100%;
-// `;
 
 const ScrollItem = styled.div`
-    display: flex;    
-    flex: none;
-    margin-right: 100px;
-    max-width: 350px;
-    width: 100%;
-    height: 100%;
+    width: 472px;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
-
 
 const PopularArtist = () => {
     const scrollRef = useRef(null);
     const [popularArtist, setPopularArtist] = useState([]);
+    const [slideIndex, setSlideIndex] = useState(0);
 
+    const totalSlides = 47;
+    const slideDuration = 2000;
+    
     useEffect(() => {
         fetchLastSong();
-    }, []);
+        const interval = setInterval(() => {
+            const nextIndex = (slideIndex + 1) % totalSlides;
+            setSlideIndex(nextIndex);
+          }, slideDuration);
+        return () => clearInterval(interval);
+    },  [slideIndex, totalSlides, slideDuration] );
+
 
     const fetchLastSong = () => {
         axios.get('http://192.168.0.133:3000/top/artist')
@@ -78,37 +58,24 @@ const PopularArtist = () => {
     }
 
     return (
-        // version 1
-        // <ScrollContainer ref={scrollRef}>
-        //     {popularArtist.map((data) => (
-        //         <ScrollItem key={data.rank}>
-        //             <ChartList
-        //                 type="artist"
-        //                 rank={data.rank}
-        //                 artist={data.artist}
-        //                 imageUri={data.imageUri}
-        //             />
-        //         </ScrollItem>
-        //     ))}
-        // </ScrollContainer>
 
-        // version 2
-        <ScrollContainer ref={scrollRef}>
-            <Article>
-            {popularArtist.map((data) => (
-                <ScrollItem key={data.rank}>
-                    <ChartList
-                        type="artist"
-                        rank={data.rank}
-                        artist={data.artist}
-                        imageUri={data.imageUri}
-                    />
-                </ScrollItem>
-            ))}
-            </Article>
-        </ScrollContainer>
+            <ScrollContainer ref={scrollRef}>
+                <Article
+                style={{ transform: `translateX(-${slideIndex * 472}px)` }}
+                >
+                {popularArtist.map((data) => (
+                    <ScrollItem key={data.rank} className='box'>
+                        <ChartList
+                            type="artist"
+                            rank={data.rank}
+                            artist={data.artist}
+                            imageUri={data.imageUri}
+                            />
+                    </ScrollItem>
+                ))}
+                </Article>
+            </ScrollContainer>
 
     );
 }
-
 export default PopularArtist;
