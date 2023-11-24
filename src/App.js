@@ -19,10 +19,10 @@ export const UserContext = createContext();
 
 const Background = styled.div`
   background-image: url(${background});
-  width: 100vw;
-  height: 100vh;
-  z-index: 10;
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: cover ;
+  object-fit: cover;
 `
 
 function App() {

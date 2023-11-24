@@ -1,5 +1,10 @@
 import Cookies from 'js-cookie';
+import styled from 'styled-components';
 
+
+// const Login = styled.div`
+
+// `
 const Login = () => {
   function generateRandomString(length) {
     let result = '';

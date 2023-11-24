@@ -7,6 +7,7 @@ const Background = styled.div`
   z-index: 10;
   opacity: 0.7;
   background-attachment:fixed;
+  background-size: cover;
 `
 
 const Container = styled.div`
@@ -49,7 +50,9 @@ function List(props) {
                         <Text>
                             <Song>{props.songName}</Song>
                             <Artist>{props.artistName}</Artist>
-                            {props.type == 'song'? (<Count>{props.count}</Count>) : '' }
+                            {props.type == 'song'? (
+                                
+                            <Count>{props.count}</Count>) : '' }
                         </Text>
                     </Container>
         </Background>
