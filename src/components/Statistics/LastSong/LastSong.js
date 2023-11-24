@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import SongList from '../List/SongList';
-
+import URL from '../../../store/constant/constant';
 const LastSong = () => {
     const [lastSong, setLastSong] = useState([]);
 
@@ -10,7 +10,7 @@ const LastSong = () => {
     }, []);
 
     const fetchLastSong = () => {
-        axios.get('http://localhost:3000/last/song')
+        axios.get(URL.GET_LAST_SONG)
             .then(response => {
                 setLastSong(response.data);
             })

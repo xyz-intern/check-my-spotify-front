@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
 import SongList from '../List/SongList'
+import URL from "../../../store/constant/constant";
 const FavoriteSong = () => {
     const [song, setLastSong] = useState([]);
 
@@ -9,7 +10,7 @@ const FavoriteSong = () => {
     }, []);
 
     const fetchFavoriteSong = () => {
-        axios.get('http://localhost:3000/favorite/song')
+        axios.get(URL.GET_FAVORITE_SONG)
             .then(response => {
                 setLastSong(response.data);
             })
