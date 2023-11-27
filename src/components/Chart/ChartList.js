@@ -56,7 +56,7 @@ const ChartList = (props) => {
         <App>
             <Card>
                     <Content>
-                        {props.type == 'song' ? (<div>songName: {props.songName}</div>) : ''}
+                        {props.type === 'song' ? (<div>songName: {props.songName}</div>) : ''}
                         <Image src={props.imageUri}></Image>
                         <Artist>{props.artist}</Artist>
                         <Rank># {props.rank}</Rank>

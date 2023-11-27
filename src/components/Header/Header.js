@@ -9,36 +9,37 @@ const Headers = styled.header`
     display: flex;
 `
 
-const Li = styled.li`
+const Move = styled.li`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-`
-
-const Text = styled.a`
+  text-decoration: none;
+  a {
     text-decoration: none;
     color: black;
+  }
 `
+
 
 const Header = () => {
     return (
         <Headers>
-            <Li>
-                <Link to="/last/song"><Text>Last Stream</Text></Link>
-            </Li>
+            <Move>
+                <Link to="/last/song">Last Stream</Link>
+            </Move>
 
-            <Li>
-                <Link to="/favorite/song"><Text>Most Stream</Text></Link>
-            </Li>
+            <Move>
+                <Link to="/favorite/song">Most Stream</Link>
+            </Move>
 
-            <Li>
-                <Link to="/favorite/artist"><Text>FavoriteArtist</Text></Link>
-            </Li>
+            <Move>
+                <Link to="/favorite/artist">FavoriteArtist</Link>
+            </Move>
 
-            <Li>
-                <Link to="/callback"><Text>Login</Text></Link>
-            </Li>
+            <Move>
+                <Link to="/callback">Login</Link>
+            </Move>
         </Headers>
     )
 }

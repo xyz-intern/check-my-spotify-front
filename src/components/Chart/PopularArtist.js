@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState , useRef } from 'react';
-import ChartList from '../ChartList/ChartList';
-import styled, { keyframes } from 'styled-components';
+import ChartList from '../Chart/ChartList';
+import styled from 'styled-components';
 
 const ScrollContainer = styled.div`
     width: 100%;
@@ -9,10 +9,6 @@ const ScrollContainer = styled.div`
     display: flex;
     top: 10%;
     overflow: hidden;
-`
-const BannerMove = keyframes`
-    from { transform: translateX(0px); }
-    to   { transform: translateX(-22560px); }
 `
 
 const Article = styled.div`
@@ -58,7 +54,7 @@ const PopularArtist = () => {
     }
 
     return (
-
+        
             <ScrollContainer ref={scrollRef}>
                 <Article
                 style={{ transform: `translateX(-${slideIndex * 472}px)` }}

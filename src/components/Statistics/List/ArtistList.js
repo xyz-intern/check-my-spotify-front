@@ -1,10 +1,5 @@
 import styled from "styled-components";
 
-
-const Container = styled.div`
-    background-size: cover;
-    height: 50vh;
-`
 const Card = styled.div`
   width: 356px;
   color: black;
@@ -15,6 +10,7 @@ const Image = styled.img`
   height: 250px;
   margin: 60px;
   border-radius: 50%;
+  opacity: 0.7;
 `;
 
 const Artist = styled.div`
@@ -26,14 +22,12 @@ const Artist = styled.div`
 `;
 
 const ArtistList = (props) => {
-    return (
-        <Container>
-                <Card>
-                    <Image src={props.artistImage} />
-                    <Artist>{props.artistName}</Artist>
-                </Card>
-                </Container>
-    );
+  return (
+    <Card>
+      <Image src={props.artistImage} />
+      <Artist>{props.artistName}</Artist>
+    </Card>
+  );
 };
 
 export default ArtistList;

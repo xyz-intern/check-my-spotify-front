@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
 import axios from 'axios';
-import SongList from '../List/SongList'
-import URL from "../../../store/constant/constant";
-const FavoriteSong = () => {
-    const [song, setLastSong] = useState([]);
+import { useEffect, useState } from 'react';
+import SongList from './List/SongList';
+import URL from '../../store/constant/constant';
+const LastSong = () => {
+    const [lastSong, setLastSong] = useState([]);
 
     useEffect(() => {
-        fetchFavoriteSong();
+        fetchLastSong();
     }, []);
 
-    const fetchFavoriteSong = () => {
-        axios.get(URL.GET_FAVORITE_SONG)
+    const fetchLastSong = () => {
+        axios.get(URL.GET_LAST_SONG)
             .then(response => {
                 setLastSong(response.data);
             })
@@ -21,10 +21,9 @@ const FavoriteSong = () => {
 
     return (
         <div>
-            {song.map((song) => (
+            {lastSong.map((song) => (
                 <SongList
                     key={song.songId}
-                    type="song"
                     id={song.songId}
                     artistName={song.artistName}
                     songName={song.songName}
@@ -36,4 +35,5 @@ const FavoriteSong = () => {
         </div>
     );
 }
-export default FavoriteSong;
+
+export default LastSong;

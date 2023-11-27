@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import URL from '../../../store/constant/constant';
-import ArtistList from '../List/ArtistList';
+import URL from '../../store/constant/constant';
+import ArtistList from './List/ArtistList';
 import styled from 'styled-components';
-import background from '../../images/favoriteArtist.png';
-
+import background from '../images/favoriteArtist.png';
+import Header from '../Header/Header';
 const Background = styled.div`
   background-image: url(${background});
-  background-repeat: no-repeat;
-  background-position: center;
-  object-fit: cover;
-  background-size: cover;
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100vh;
 `;
 
 const App = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  // 배경 꽉차게 스크롤
+  overflow-y: auto;
+  height: 100%;
 `;
 
 
