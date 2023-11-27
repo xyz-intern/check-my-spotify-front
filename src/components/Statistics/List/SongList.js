@@ -1,15 +1,4 @@
 import styled from "styled-components";
-import background from '../../images/mostStream.png'
-const Background = styled.div`
-  background-image: url(${background});
-  width: 100vw;
-  z-index: 10;
-  opacity: 0.7;
-  background-attachment:fixed;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
-`
 
 const Container = styled.div`
   display: flex;
@@ -53,21 +42,19 @@ const Count = styled.div`
 
 function List(props) {
     return (
-        <Background>
-            <Container>
-                <Image src={props.albumImage} />
-                <Wrapper>
-                    <Content1>
-                        <Song>{props.songName}</Song>
-                        {props.artistName}
-                    </Content1>
-                    <Content2>
-                        {props.type == 'song' ? (
-                            <Count>{props.count}</Count>) : ''}
-                    </Content2>
-                </Wrapper>
-            </Container>
-        </Background>
+        <Container>
+            <Image src={props.albumImage} />
+            <Wrapper>
+                <Content1>
+                    <Song>{props.songName}</Song>
+                    {props.artistName}
+                </Content1>
+                <Content2>
+                    {props.type == 'song' ? (
+                        <Count>{props.count}</Count>) : ''}
+                </Content2>
+            </Wrapper>
+        </Container>
     );
 }
 

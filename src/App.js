@@ -6,9 +6,8 @@ import {
   Routes,
 } from "react-router-dom";
 import Artist from './components/Statistics/FavoriteArtist'
-import FavoriteSong from './components/Statistics/FavoriteSong'
-import LastSong from './components/Statistics/LastSong';
-import Header from './components/Header/Header'
+import MostStream from './components/Statistics/MostStream'
+import LastStream from './components/Statistics/LastStream';
 import Redirection from './components/Login/Redirection'
 import styled from 'styled-components';
 import background from './components/images/home.png'
@@ -17,14 +16,14 @@ import PopularArtist from './components/Chart/PopularArtist';
 export const AppContext = createContext();
 export const UserContext = createContext();
 
-const Background = styled.div`
-  background-image: url(${background});
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  object-fit: cover;
-  height: 100vh;
-`
+// const Background = styled.div`
+//   background-image: url(${background});
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   background-size: cover;
+//   object-fit: cover;
+//   height: 100%;
+// `
 
 function App() {
   const [code, setCode] = useState(new URL(document.location.toString()).searchParams.get('code'));
@@ -35,11 +34,10 @@ function App() {
       <AppContext.Provider value={code}>
         <UserContext.Provider value={state}>
           <BrowserRouter>
-            <Header />
             <Routes>
-              <Route path="/" element={<PopularArtist />} /> {/* 수정된 부분 */}
-              <Route path="/last/song" element={<LastSong />} />
-              <Route path="/favorite/song" element={<FavoriteSong />} />
+              <Route path="/" element={<PopularArtist />} /> 
+              <Route path="/last/song" element={<LastStream />} />
+              <Route path="/favorite/song" element={<MostStream />} />
               <Route path="/favorite/artist" element={<Artist />} />
               <Route path="/callback" element={code ? <Redirection /> : <Login />} />
             </Routes>

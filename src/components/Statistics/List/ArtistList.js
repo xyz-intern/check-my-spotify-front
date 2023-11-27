@@ -10,7 +10,6 @@ const Image = styled.img`
   height: 250px;
   margin: 60px;
   border-radius: 50%;
-  opacity: 0.7;
 `;
 
 const Artist = styled.div`

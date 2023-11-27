@@ -1,16 +1,16 @@
 import Cookies from 'js-cookie';
 import styled from 'styled-components';
-import background from '../images/Login.png'
 import spotify from '../images/spotify.jpg'
+import Header from '../Header/Header';
+import background from '../images/Login.png'
 
 const Background = styled.div`
-  background-image: url(${background});
+background-image: url(${background});
   background-size: cover;
   background-attachment: fixed;
   width: 100vw;
   height: 100vh;
-`;
-
+`
 const Container = styled.div`
   background-color: rgba(230, 230, 230, 0.5);
   position: relative;
@@ -67,6 +67,7 @@ const Login = () => {
 
   return (
     <Background>
+      <Header />
       <Container>
         <Content>Spotify에 로그인하기</Content>
         <Logins onClick={axiosRequest}></Logins>

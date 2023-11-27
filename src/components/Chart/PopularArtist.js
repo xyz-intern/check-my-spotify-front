@@ -2,7 +2,16 @@ import axios from 'axios';
 import { useEffect, useState , useRef } from 'react';
 import ChartList from '../Chart/ChartList';
 import styled from 'styled-components';
-
+import Header from '../Header/Header';
+import background from '../images/home.png'
+const Background = styled.div`
+  background-image: url(${background});
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  object-fit: cover;
+  height: 100%;
+`
 const ScrollContainer = styled.div`
     width: 100%;
     position: relative;
@@ -54,7 +63,8 @@ const PopularArtist = () => {
     }
 
     return (
-        
+        <Background>
+        <Header />
             <ScrollContainer ref={scrollRef}>
                 <Article
                 style={{ transform: `translateX(-${slideIndex * 472}px)` }}
@@ -71,7 +81,7 @@ const PopularArtist = () => {
                 ))}
                 </Article>
             </ScrollContainer>
-
+            </Background>
     );
 }
 export default PopularArtist;

@@ -3,7 +3,19 @@ import axios from 'axios';
 import SongList from './List/SongList'
 import URL from "../../store/constant/constant";
 import Header from "../Header/Header";
-const FavoriteSong = () => {
+import background from '../images/mostStream.png';
+import styled from "styled-components";
+
+const Background = styled.div`
+  background-image: url(${background});
+  width: 100%;
+  z-index: 10;
+  background-attachment:fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+`
+const MostStream = () => {
     const [song, setLastSong] = useState([]);
 
     useEffect(() => {
@@ -21,7 +33,8 @@ const FavoriteSong = () => {
     }
 
     return (
-        <div>
+        <Background>
+            <Header />
             {song.map((song) => (
                 <SongList
                     key={song.songId}
@@ -34,7 +47,7 @@ const FavoriteSong = () => {
                     count={song.count}
                 />
             ))}
-        </div>
+        </Background>
     );
 }
-export default FavoriteSong;
+export default MostStream;

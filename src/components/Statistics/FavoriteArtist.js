@@ -5,22 +5,25 @@ import ArtistList from './List/ArtistList';
 import styled from 'styled-components';
 import background from '../images/favoriteArtist.png';
 import Header from '../Header/Header';
-const Background = styled.div`
+
+const Background = styled.body`
   background-image: url(${background});
-  background-size: 100% 100%;
+  background-size: cover;
   background-attachment: fixed;
-  width: 100%;
-  height: 100vh;
-`;
+`
 
 const App = styled.div`
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+`
+
+const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  // 배경 꽉차게 스크롤
-  overflow-y: auto;
-  height: 100%;
 `;
+
 
 
 const FavoriteArtist = () => {
@@ -43,7 +46,9 @@ const FavoriteArtist = () => {
 
     return (
         <Background>
+            <Header />
             <App>
+            <Container>
                 {artist.map(song => (
                     <ArtistList
                         key={song.songId}
@@ -51,6 +56,7 @@ const FavoriteArtist = () => {
                         artistImage={song.artistImage}
                     />
                 ))}
+            </Container>
             </App>
         </Background>
     );

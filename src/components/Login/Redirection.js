@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { useContext } from 'react';
 import { AppContext, UserContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
+
 const Redirection = () => {
   const navigate = useNavigate();
   const code = useContext(AppContext);

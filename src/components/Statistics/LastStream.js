@@ -2,7 +2,21 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import SongList from './List/SongList';
 import URL from '../../store/constant/constant';
-const LastSong = () => {
+import Header from '../Header/Header';
+import background from '../images/lastSong.png';
+import styled from 'styled-components';
+
+const Background = styled.div`
+  background-image: url(${background});
+  width: 100%;
+  z-index: 10;
+  background-attachment:fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+`;
+
+const LastStream = () => {
     const [lastSong, setLastSong] = useState([]);
 
     useEffect(() => {
@@ -20,7 +34,8 @@ const LastSong = () => {
     }
 
     return (
-        <div>
+        <Background>
+            <Header />
             {lastSong.map((song) => (
                 <SongList
                     key={song.songId}
@@ -32,8 +47,8 @@ const LastSong = () => {
                     count={song.count}
                 />
             ))}
-        </div>
+        </Background>
     );
 }
 
-export default LastSong;
+export default LastStream;
