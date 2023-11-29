@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom'
 import styled from "styled-components";
-
+import {AppContext} from '../../App'
 const Headers = styled.header`
     top: 0;
     width: 100%;
@@ -21,8 +21,19 @@ const Move = styled.li`
   }
 `
 
+const LogoutBtn = styled.div`
+    border: none;
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+`
 
 const Header = () => {
+    const appContext = useContext(AppContext)
     return (
         <Headers>
             <Move>
@@ -38,7 +49,7 @@ const Header = () => {
             </Move>
 
             <Move>
-                <Link to="/callback">Login</Link>
+                {!appContext.isLoggin? (<Link to="/callback">Login</Link>) : (<Link to = "/logout" ><LogoutBtn>Logout</LogoutBtn></Link>) }
             </Move>
         </Headers>
     )

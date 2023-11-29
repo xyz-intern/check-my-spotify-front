@@ -2,13 +2,12 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useContext } from 'react';
-import { AppContext, UserContext } from '../../App';
+import { AppContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
-const Redirection = () => {
+const Redirection = (props) => {
   const navigate = useNavigate();
-  const code = useContext(AppContext);
-  const state = useContext(UserContext);
+  const appContext = useContext(AppContext);
 
   let is_throw = false;
   let is_error = false;
@@ -19,16 +18,16 @@ const Redirection = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get(`http://localhost:3000/callback?code=${code}&state=${state}`, { withCredentials: true });
-        console.log('good');
+        await axios.get(`http://localhost:3000/callback?code=${appContext.code}&state=${appContext.state}`, { withCredentials: true });
         is_throw = true;
       } catch (error) {
         is_error = true;
       }
+      props.isLoggin();
+      navigate('/')
     };
-
+  
     fetchData();
-    navigate('/')
     const interval = setInterval(reissueToken, 3540000);
 
     return () => {
@@ -40,8 +39,7 @@ const Redirection = () => {
     try {
       refreshToken = Cookies.get('refreshToken');
       userId = Cookies.get('userId');
-      const response = await axios.post('http://localhost:3000/reissue', { refreshToken: refreshToken, userId: userId, withCredentials: true });
-      console.log(response);
+      await axios.post('http://localhost:3000/reissue', { refreshToken: refreshToken, userId: userId, withCredentials: true });
     } catch (error) {
       console.log(error);
     }

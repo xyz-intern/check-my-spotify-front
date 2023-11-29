@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect, useState , useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import ChartList from '../Chart/ChartList';
 import styled from 'styled-components';
 import Header from '../Header/Header';
@@ -10,7 +10,7 @@ const Background = styled.div`
   background-position: center;
   background-size: cover;
   object-fit: cover;
-  height: 100%;
+  height: 100vh;
 `
 const ScrollContainer = styled.div`
     width: 100%;
@@ -41,15 +41,15 @@ const PopularArtist = () => {
 
     const totalSlides = 47;
     const slideDuration = 2000;
-    
+
     useEffect(() => {
         fetchLastSong();
         const interval = setInterval(() => {
             const nextIndex = (slideIndex + 1) % totalSlides;
             setSlideIndex(nextIndex);
-          }, slideDuration);
+        }, slideDuration);
         return () => clearInterval(interval);
-    },  [slideIndex, totalSlides, slideDuration] );
+    }, [slideIndex, totalSlides, slideDuration]);
 
 
     const fetchLastSong = () => {
@@ -64,24 +64,24 @@ const PopularArtist = () => {
 
     return (
         <Background>
-        <Header />
+            <Header />
             <ScrollContainer ref={scrollRef}>
                 <Article
-                style={{ transform: `translateX(-${slideIndex * 472}px)` }}
+                    style={{ transform: `translateX(-${slideIndex * 472}px)` }}
                 >
-                {popularArtist.map((data) => (
-                    <ScrollItem key={data.rank} className='box'>
-                        <ChartList
-                            type="artist"
-                            rank={data.rank}
-                            artist={data.artist}
-                            imageUri={data.imageUri}
+                    {popularArtist.map((data) => (
+                        <ScrollItem key={data.rank} className='box'>
+                            <ChartList
+                                type="artist"
+                                rank={data.rank}
+                                artist={data.artist}
+                                imageUri={data.imageUri}
                             />
-                    </ScrollItem>
-                ))}
+                        </ScrollItem>
+                    ))}
                 </Article>
             </ScrollContainer>
-            </Background>
+        </Background>
     );
 }
 export default PopularArtist;
