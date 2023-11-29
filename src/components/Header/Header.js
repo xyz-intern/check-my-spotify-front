@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from 'react-router-dom'
 import styled from "styled-components";
 import {AppContext} from '../../App'
+
 const Headers = styled.header`
     top: 0;
     width: 100%;
