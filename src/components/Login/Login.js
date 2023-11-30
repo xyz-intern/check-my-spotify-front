@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import styled from 'styled-components';
 import spotify from '../images/spotify.jpg'
 import Header from '../Header/Header';

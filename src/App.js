@@ -40,8 +40,9 @@ function App() {
    localStorage.removeItem('isLoggedIn');
   };
 
+
   return (
-    <AppContext.Provider value={{ code, state, isLoggin, loginHandler, logoutHandler }}>
+    <AppContext.Provider value={{ code, state, isLoggin }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<PopularArtist />} />
