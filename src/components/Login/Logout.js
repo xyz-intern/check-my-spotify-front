@@ -1,14 +1,13 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import URL from '../../store/constant/constant';
 import axios from "axios";
+import { AppContext } from "../../App";
+
 const Logout = (props) => {
     const navigate = useNavigate();
-    const logoutHandler = () => {
-        props.isLogout();
-    }
-
+    const appContext = useContext(AppContext)
     const deleteUserTokenHanlder = () => {
         const userId = Cookies.get("userId");
         axios.delete(`${URL.LOGOUT}${userId}`)
@@ -20,7 +19,9 @@ const Logout = (props) => {
     }
 
     useEffect(() => {
-        logoutHandler();
+        appContext.setIsLoggin(false);
+        appContext.setCode('');
+        localStorage.removeItem('isLoggedIn');
         deleteUserTokenHanlder();
         Cookies.remove('userId');
         Cookies.remove('refreshToken');

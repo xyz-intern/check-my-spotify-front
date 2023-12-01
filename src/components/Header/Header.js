@@ -38,11 +38,11 @@ const Header = () => {
     return (
         <Headers>
             <Move>
-                <Link to="/last/song">Last Stream</Link>
+                <Link to="/last/stream">Last Stream</Link>
             </Move>
 
             <Move>
-                <Link to="/favorite/song">Most Stream</Link>
+                <Link to="/most/stream">Most Stream</Link>
             </Move>
 
             <Move>

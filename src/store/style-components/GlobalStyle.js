@@ -2,17 +2,15 @@ import styled from "styled-components"
 import nologin from '../../components/images/nologin.png';
 import moststream from '../../components/images/mostStream.png';
 import favoriteartist from "../../components/images/favoriteArtist.png";
-import e from "cors";
 
 export const Background = styled.div`
     background-image: ${props => props.background ? `url(${moststream})` : `url(${favoriteartist})`};
     width: 100%;
-    z-index: 10;
     background-attachment:fixed;
     background-size: cover;
-    background-repeat: no-repeat;
-    background-position: top center;
-    height: 100%;
+    background-repeat: no-repeat; 
+    /* background-position: top center;
+    /* height: 100vh; */
 `
 
 export const LoginBackground = styled.div`

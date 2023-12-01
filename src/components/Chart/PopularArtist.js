@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import ChartList from '../Chart/ChartList';
 import styled from 'styled-components';
 import Header from '../Header/Header';
 import background from '../images/home.png'
+
 const Background = styled.div`
   background-image: url(${background});
   background-repeat: no-repeat;
@@ -12,6 +13,7 @@ const Background = styled.div`
   object-fit: cover;
   height: 100vh;
 `
+
 const ScrollContainer = styled.div`
     width: 100%;
     position: relative;
@@ -61,6 +63,7 @@ const PopularArtist = () => {
                 console.log(error);
             });
     }
+
 
     return (
         <Background>
