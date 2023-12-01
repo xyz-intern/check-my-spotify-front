@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import URL from '../../store/constant/constant';
 import axios from "axios";
 const Logout = (props) => {
     const navigate = useNavigate();
@@ -10,7 +11,7 @@ const Logout = (props) => {
 
     const deleteUserTokenHanlder = () => {
         const userId = Cookies.get("userId");
-        axios.delete(`http://localhost:3000/logout/${userId}`)
+        axios.delete(`${URL.LOGOUT}${userId}`)
             .then((reponse) => {
                 console.log('토큰 삭제가 완료되었습니다.');
             }).catch((error) => {

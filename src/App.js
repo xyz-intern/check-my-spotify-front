@@ -18,6 +18,7 @@ function App() {
   const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   const [code, setCode] = useState('');
   const [state, setState] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoggin, setIsLoggin] = useState(storedIsLoggedIn);
 
   useEffect(() => {
@@ -42,7 +43,7 @@ function App() {
 
 
   return (
-    <AppContext.Provider value={{ code, state, isLoggin }}>
+    <AppContext.Provider value={{ code, state, isLoggin, isLoading, setIsLoading }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<PopularArtist />} />

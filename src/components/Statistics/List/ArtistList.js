@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import { AppContext } from "../../../App";
 
 const Card = styled.div`
   width: 356px;
@@ -20,12 +22,16 @@ const Artist = styled.div`
   margin-left: 13px;
 `;
 
+
 const ArtistList = (props) => {
+  const appContext = useContext(AppContext)
+  appContext.setIsLoading(false);
   return (
     <Card>
       <Image src={props.artistImage} />
       <Artist>{props.artistName}</Artist>
     </Card>
+    
   );
 };
 

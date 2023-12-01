@@ -7,107 +7,51 @@ import background from '../images/lastSong.png';
 import styled from 'styled-components';
 import noplay from '../images/noplay.png'
 import login from '../images/nologin.png'
+import * as t from '../../store/style-components/GlobalStyle'
 import { AppContext } from '../../App';
 
 
-const Background = styled.div`
-  background-image: url(${background});
-  width: 100%;
-  z-index: 10;
-  background-attachment: fixed;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
-`;
-
-const NotLogin = styled.div`
-  background-image: url(${login});
-  width: 100%;
-  z-index: 10;
-  background-attachment: fixed;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top center;
-  height: 100vh;
-`;
-
-const Null = styled.img`
-  position: absolute;
-  width: 550px;
-  height: 370px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 25px;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  /* position: relative; */
-`;
-
-const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
-const Loading = styled.div`
-  font-size: 50px;
-  font-weight: 400;
-  margin-top: -50px;
-  color: black;
-  /* 추가적인 스타일링을 원하신다면 필요한 스타일을 여기에 추가하세요 */
-`;
-
 const LastStream = () => {
-  const appContext = useContext(AppContext)
-  const [isLoading, setIsLoading] = useState(true);
+  const appContext = useContext(AppContext);
   const [lastSong, setLastSong] = useState([]);
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchLastSong();
-    }, 1000)
+    fetchLastSong();
   }, []);
 
   const fetchLastSong = () => {
-    setIsLoading(true);
-    console.log('before', isLoading);
+    appContext.setIsLoading(true);
     axios
       .get(URL.GET_LAST_SONG)
       .then((response) => {
         setLastSong(response.data);
-        setIsLoading(false);
+        appContext.setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
-        setIsLoading(false);
+        appContext.setIsLoading(false);
       });
   };
 
 
   return (
     <>
-      {isLoading ? (
-        <Background>
+      {appContext.isLoading && lastSong == '' ? (
+        <t.Background background={true}>
           <Header />
-          <Container>
-            <Loading>
-              Loading ...</Loading>
-          </Container>
-        </Background>
+          <t.Container>
+            <t.Loading>Loading ...</t.Loading>
+          </t.Container>
+        </t.Background>
       ) : (
         <>
           {lastSong.length === 0 ? (
-            <NotLogin>
+            <t.LoginBackground>
               <Header />
-              <Null src={noplay} />
-            </NotLogin>
+              <t.Play src={noplay} />
+            </t.LoginBackground>
           ) : (
-            <Background>
+            <t.Background background={true}>
               <Header />
               {lastSong.map((song) => (
                 <SongList
@@ -120,7 +64,7 @@ const LastStream = () => {
                   count={song.count}
                 />
               ))}
-            </Background>
+            </t.Background>
           )}
         </>
       )}
