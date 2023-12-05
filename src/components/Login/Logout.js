@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-import URL from '../../store/constant/constant';
+import SPOTIFY from '../../store/constant/constant';
 import axios from "axios";
 import { AppContext } from "../../App";
 
@@ -10,7 +10,7 @@ const Logout = (props) => {
     const appContext = useContext(AppContext)
     const deleteUserTokenHanlder = () => {
         const userId = Cookies.get("userId");
-        axios.delete(`${URL.LOGOUT}${userId}`)
+        axios.delete(`${SPOTIFY.LOGOUT}${userId}`)
             .then((reponse) => {
                 console.log('토큰 삭제가 완료되었습니다.');
             }).catch((error) => {

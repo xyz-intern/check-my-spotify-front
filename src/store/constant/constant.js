@@ -1,4 +1,4 @@
-const URL = {
+export const URL = {
     GET_TOP_SONG: 'http://192.168.0.133:3000/top/songs',
     GET_HEARD_ARTISTS: 'http://localhost:3000/heard/artists',
     GET_LAST_SONG: 'http://192.168.0.133:3000/last/song',

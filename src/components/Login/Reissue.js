@@ -2,11 +2,10 @@ import { useContext, useEffect } from "react";
 import { AppContext } from "../../App";
 import axios from "axios";
 import Cookies from "js-cookie";
-import URL from '../../store/constant/constant'
+import URL from '../../store/constant/constant';
 
 const Reissue = () => {
     const appContext = useContext(AppContext);
-
     let userId;
     let refreshToken;
 
@@ -14,7 +13,7 @@ const Reissue = () => {
         let intervalId;
       
         if (appContext.isLoggin) {
-          intervalId = setInterval(reissueToken, 1000);
+          intervalId = setInterval(reissueToken, 3540000);
         }
       
         return () => {
@@ -29,6 +28,7 @@ const Reissue = () => {
         try {
           refreshToken = Cookies.get('refreshToken');
           userId = Cookies.get('userId');
+          alert(`${URL.TOKEN_REISSUE}`)
           await axios.post(`${URL.TOKEN_REISSUE}`, { refreshToken: refreshToken, userId: userId, withCredentials: true });
         } catch (error) {
           console.log(error);

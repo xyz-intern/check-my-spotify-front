@@ -3,8 +3,7 @@ import Login from "./components/Login/Login";
 import {
   BrowserRouter,
   Route,
-  Routes,
-  useLocation,
+  Routes
 } from "react-router-dom";
 import Artist from './components/Statistics/FavoriteArtist'
 import MostStream from './components/Statistics/MostStream'
@@ -13,7 +12,7 @@ import Redirection from './components/Login/Redirection'
 import PopularArtist from './components/Chart/PopularArtist';
 import Logout from './components/Login/Logout';
 import Reissue from './components/Login/Reissue';
-// import { useLocation } from 'react-router-dom';
+
 export const AppContext = createContext();
 
 function App() {
@@ -22,6 +21,7 @@ function App() {
   const [state, setState] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggin, setIsLoggin] = useState(storedIsLoggedIn);
+  const [error, setError] = useState([])
 
   useEffect(() => {
     const urlParams = new URL(document.location.toString());
@@ -32,20 +32,8 @@ function App() {
     if (initialState) setState(initialState);
   }, []);
 
-  // const loginHandler = () => {
-  //   setIsLoggin(true);
-  //   localStorage.setItem('isLoggedIn', 'true'); // 로그인 상태 유지
-  // };
-
-  // const logoutHandler = () => {
-  //   setIsLoggin(false);
-  //   setCode('');
-  //   localStorage.removeItem('isLoggedIn');
-  // };
-
-
   return (
-    <AppContext.Provider value={{ code, state, isLoggin, isLoading, setIsLoading, setIsLoggin, setCode }}>
+    <AppContext.Provider value={{ code, state, isLoggin, isLoading, setIsLoading, setIsLoggin, setCode, setError, error }}>
       <BrowserRouter>
         <Reissue />
         <Routes>

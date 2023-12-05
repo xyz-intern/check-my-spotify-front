@@ -9,14 +9,12 @@ export const Background = styled.div`
     background-attachment:fixed;
     background-size: cover;
     background-repeat: no-repeat; 
-    /* background-position: top center;
-    /* height: 100vh; */
+    /* height: 100%; */
 `
 
 export const LoginBackground = styled.div`
     background-image: url(${nologin});
     width: 100%;
-    z-index: 10;
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -41,15 +39,15 @@ export const Play = styled.img`
 
 
 export const Container = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 `;
 
 export const Loading = styled.div`
-font-size: 50px;
-font-weight: 400;
-margin-top: -50px;
-color: black;
+    font-size: 50px;
+    font-weight: 400;
+    margin-top: -50px;
+    color: black;
 `;

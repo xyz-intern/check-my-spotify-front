@@ -27,7 +27,6 @@ const Redirection = (props) => {
     };
 
     fetchData();
-
   }, []);
 
   return (

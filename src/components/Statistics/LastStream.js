@@ -3,24 +3,24 @@ import { useContext, useEffect, useState } from 'react';
 import SongList from './List/SongList';
 import URL from '../../store/constant/constant';
 import Header from '../Header/Header';
-import background from '../images/lastSong.png';
-import styled from 'styled-components';
 import noplay from '../images/noplay.png'
-import login from '../images/nologin.png'
 import * as t from '../../store/style-components/GlobalStyle'
 import { AppContext } from '../../App';
-
+import errorHandler from '../../store/error/ErrorHandler'
 
 const LastStream = () => {
   const appContext = useContext(AppContext);
   const [lastSong, setLastSong] = useState([]);
 
   useEffect(() => {
-    fetchLastSong();
+    setTimeout(() => {
+      fetchLastSong();
+    }, 1000)
   }, []);
 
   const fetchLastSong = () => {
     appContext.setIsLoading(true);
+    appContext.setError(null);
     axios
       .get(URL.GET_LAST_SONG)
       .then((response) => {
@@ -28,11 +28,16 @@ const LastStream = () => {
         appContext.setIsLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        appContext.setError(errorHandler.handleError(error));
+        // appContext.setError(errorMessage);
         appContext.setIsLoading(false);
       });
   };
 
+  let content = '';
+  if (appContext.error) {
+    content = <p>{appContext.error}</p>;
+  }
 
   return (
     <>
@@ -45,7 +50,9 @@ const LastStream = () => {
         </t.Background>
       ) : (
         <>
-          {lastSong.length === 0 ? (
+          {appContext.error ? (
+            <p>{appContext.error}</p>
+          ) : lastSong.length === 0 ? (
             <t.LoginBackground>
               <Header />
               <t.Play src={noplay} />
@@ -56,12 +63,9 @@ const LastStream = () => {
               {lastSong.map((song) => (
                 <SongList
                   key={song.songId}
-                  id={song.songId}
                   artistName={song.artistName}
                   songName={song.songName}
                   albumImage={song.albumImage}
-                  albumName={song.albumName}
-                  count={song.count}
                 />
               ))}
             </t.Background>

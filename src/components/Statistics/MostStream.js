@@ -6,15 +6,16 @@ import Header from "../Header/Header";
 import noplay from '../images/noplay.png'
 import { AppContext } from "../../App";
 import * as t from '../../store/style-components/GlobalStyle'
-
-
+import errorHandler from "../../store/error/ErrorHandler";
 
 const MostStream = () => {
     const appContext = useContext(AppContext);
     const [song, setLastSong] = useState([]);
 
     useEffect(() => {
-        fetchFavoriteSong();
+        setTimeout(() => {
+            fetchFavoriteSong();
+        }, 1000)
     }, []);
 
     const fetchFavoriteSong = () => {
@@ -25,14 +26,15 @@ const MostStream = () => {
                 appContext.setIsLoading(false)
             })
             .catch(error => {
-                console.log(error);
+                let errorMessage = errorHandler.handleError(error);
+                appContext.setError(errorMessage);
                 appContext.setIsLoading(false)
             });
     }
 
     return (
         <>
-            {appContext.isLoading && song == '' ? (
+            {appContext.isLoading && song.length == 0 ? (
                 <t.Background background={true}>
                     <Header />
                     <t.Container>
@@ -42,7 +44,7 @@ const MostStream = () => {
                 </t.Background>
             ) : (
                 <>
-                    {song == '' ? (
+                    {song.length == 0 ? (
                         <t.LoginBackground>
                             <Header />
                             <t.Play src={noplay} />
@@ -54,15 +56,12 @@ const MostStream = () => {
                                 <SongList
                                     key={song.songId}
                                     type="song"
-                                    id={song.songId}
                                     artistName={song.artistName}
                                     songName={song.songName}
                                     albumImage={song.albumImage}
-                                    albumName={song.albumName}
                                     count={song.count}
                                 />
                             ))}
-
                         </t.Background>
                     )}
                 </>
