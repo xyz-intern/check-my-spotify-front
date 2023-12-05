@@ -14,6 +14,7 @@ import Logout from './components/Login/Logout';
 import Reissue from './components/Login/Reissue';
 
 export const AppContext = createContext();
+export const PageContext = createContext();
 
 function App() {
   const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
@@ -21,8 +22,8 @@ function App() {
   const [state, setState] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggin, setIsLoggin] = useState(storedIsLoggedIn);
-  const [error, setError] = useState([])
-
+  const [error, setError] = useState([]);
+  
   useEffect(() => {
     const urlParams = new URL(document.location.toString());
     const initialCode = urlParams.searchParams.get('code');
@@ -33,7 +34,8 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider value={{ code, state, isLoggin, isLoading, setIsLoading, setIsLoggin, setCode, setError, error }}>
+    <AppContext.Provider value={{ code, state, isLoggin, setIsLoggin, setCode }}>
+      <PageContext.Provider value={{ isLoading, setIsLoading, setError, error}}>
       <BrowserRouter>
         <Reissue />
         <Routes>
@@ -45,6 +47,7 @@ function App() {
           <Route path="/logout" element={<Logout/>} />
         </Routes>
       </BrowserRouter>
+      </PageContext.Provider>
     </AppContext.Provider>
   );
 }

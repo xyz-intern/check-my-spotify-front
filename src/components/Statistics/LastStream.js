@@ -5,75 +5,94 @@ import URL from '../../store/constant/constant';
 import Header from '../Header/Header';
 import noplay from '../images/noplay.png'
 import * as t from '../../store/style-components/GlobalStyle'
-import { AppContext } from '../../App';
-import errorHandler from '../../store/error/ErrorHandler'
+import { AppContext, PageContext } from '../../App';
+import ErrorHandler from '../../store/error/ErrorHandler'
+import * as e from '../../store/style-components/ErrorStyle'
+import error from '../images/error.png';
+import { useNavigate } from 'react-router-dom';
 
 const LastStream = () => {
-  const appContext = useContext(AppContext);
+  const pageContext = useContext(PageContext);
   const [lastSong, setLastSong] = useState([]);
+  const [loadingPage, setLoadingPage] = useState(true)
+  const navigate = useNavigate();
+  const { handleError, errorMessage, errorStatus } = ErrorHandler()
 
   useEffect(() => {
-    setTimeout(() => {
       fetchLastSong();
-    }, 1000)
   }, []);
 
   const fetchLastSong = () => {
-    appContext.setIsLoading(true);
-    appContext.setError(null);
+    pageContext.setIsLoading(true);
+    pageContext.setError(null);
     axios
       .get(URL.GET_LAST_SONG)
       .then((response) => {
         setLastSong(response.data);
-        appContext.setIsLoading(false);
+        pageContext.setIsLoading(false);
+        setLoadingPage(false)
       })
       .catch((error) => {
-        appContext.setError(errorHandler.handleError(error));
-        // appContext.setError(errorMessage);
-        appContext.setIsLoading(false);
+        handleError(error)
+        pageContext.setError(errorMessage);
+        pageContext.setIsLoading(false);
+        setLoadingPage(false)
       });
+
   };
 
-  let content = '';
-  if (appContext.error) {
-    content = <p>{appContext.error}</p>;
+  const HomeNavigate = () => {
+    navigate('/')
   }
 
+  if (pageContext.isLoading && lastSong.length === 0) {
+    return (
+      <t.Background background={true}>
+        <Header />
+        <t.Container>
+          <t.Loading>Loading ...</t.Loading>
+        </t.Container>
+      </t.Background>
+    )
+  }
+
+  if (lastSong.length === 0 && !loadingPage) {
+    alert('edfd')
+    return (
+      <t.LoginBackground>
+        <Header />
+        <t.Play src={noplay} />
+      </t.LoginBackground>
+    );
+  }
+
+  if (pageContext.error) {
+    return (
+      <div>
+        <e.Status>{errorStatus}</e.Status>
+        <e.Error>{errorMessage}</e.Error>
+        <e.Image src={error} />
+        <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
+      </div>
+    )
+
+  }
+
+
   return (
-    <>
-      {appContext.isLoading && lastSong == '' ? (
-        <t.Background background={true}>
-          <Header />
-          <t.Container>
-            <t.Loading>Loading ...</t.Loading>
-          </t.Container>
-        </t.Background>
-      ) : (
-        <>
-          {appContext.error ? (
-            <p>{appContext.error}</p>
-          ) : lastSong.length === 0 ? (
-            <t.LoginBackground>
-              <Header />
-              <t.Play src={noplay} />
-            </t.LoginBackground>
-          ) : (
-            <t.Background background={true}>
-              <Header />
-              {lastSong.map((song) => (
-                <SongList
-                  key={song.songId}
-                  artistName={song.artistName}
-                  songName={song.songName}
-                  albumImage={song.albumImage}
-                />
-              ))}
-            </t.Background>
-          )}
-        </>
-      )}
-    </>
-  );
-};
+    <t.Background background={true}>
+      <Header />
+      {lastSong.map((song) => (
+        <SongList
+          key={song.songId}
+          artistName={song.artistName}
+          songName={song.songName}
+          albumImage={song.albumImage}
+        />
+      ))}
+    </t.Background>
+  )
+}
+
 
 export default LastStream;

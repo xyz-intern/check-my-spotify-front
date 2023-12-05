@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { AppContext } from "../../../App";
+import { AppContext, PageContext } from "../../../App";
 
 const Card = styled.div`
   width: 356px;
@@ -24,8 +24,8 @@ const Artist = styled.div`
 
 
 const ArtistList = (props) => {
-  const appContext = useContext(AppContext)
-  appContext.setIsLoading(false);
+  const pageContext = useContext(PageContext)
+  pageContext.setIsLoading(false);
   return (
     <Card>
       <Image src={props.artistImage} />
