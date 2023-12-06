@@ -81,6 +81,7 @@ const LastStream = () => {
   return (
     <t.Background background={true}>
       <Header />
+      <t.App>
       {lastSong.map((song) => (
         <SongList
           key={song.songId}
@@ -89,6 +90,7 @@ const LastStream = () => {
           albumImage={song.albumImage}
         />
       ))}
+      </t.App>
     </t.Background>
   )
 }

@@ -10,12 +10,14 @@ import ErrorHandler from '../../store/error/ErrorHandler'
 import * as e from '../../store/style-components/ErrorStyle'
 import { useNavigate } from "react-router-dom";
 import error from '../images/error.png'
+
 const MostStream = () => {
     const pageContext = useContext(PageContext);
     const [song, setLastSong] = useState([]);
     const navigate = useNavigate();
     const [loadingPage, setLoadingPage] = useState(true)
     const { handleError, errorMessage, errorStatus } = ErrorHandler();
+
 
     useEffect(() => {
         fetchFavoriteSong();
@@ -79,6 +81,7 @@ const MostStream = () => {
     return (
         <t.Background background={true}>
             <Header />
+            <t.App>
             {song.map((song) => (
                 <SongList
                     key={song.songId}
@@ -88,7 +91,9 @@ const MostStream = () => {
                     albumImage={song.albumImage}
                     count={song.count}
                 />
+                
             ))}
+            </t.App>
         </t.Background>
     )
 }

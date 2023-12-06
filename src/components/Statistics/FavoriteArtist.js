@@ -90,7 +90,6 @@ const FavoriteArtist = () => {
         );
     }  
 
-
     return (
         <t.Background background={false}>
             <Header />
