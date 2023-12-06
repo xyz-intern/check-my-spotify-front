@@ -65,7 +65,7 @@ const MostStream = () => {
     }
 
 
-    if (pageContext.error) {
+    if (pageContext.error && (song.length === 0 && !loadingPage)) {
         return (
             <div>
                 <e.Status>{errorStatus}</e.Status>

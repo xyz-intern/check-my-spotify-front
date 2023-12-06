@@ -5,7 +5,7 @@ import URL from '../../store/constant/constant';
 import Header from '../Header/Header';
 import noplay from '../images/noplay.png'
 import * as t from '../../store/style-components/GlobalStyle'
-import { AppContext, PageContext } from '../../App';
+import { PageContext } from '../../App';
 import ErrorHandler from '../../store/error/ErrorHandler'
 import * as e from '../../store/style-components/ErrorStyle'
 import error from '../images/error.png';
@@ -57,7 +57,6 @@ const LastStream = () => {
   }
 
   if (lastSong.length === 0 && !loadingPage) {
-    alert('edfd')
     return (
       <t.LoginBackground>
         <Header />
@@ -66,7 +65,7 @@ const LastStream = () => {
     );
   }
 
-  if (pageContext.error) {
+  if (pageContext.error && (lastSong.length === 0 && !loadingPage)) {
     return (
       <div>
         <e.Status>{errorStatus}</e.Status>

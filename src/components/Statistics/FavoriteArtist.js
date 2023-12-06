@@ -4,7 +4,7 @@ import axios from 'axios';
 import URL from '../../store/constant/constant';
 import ArtistList from './List/ArtistList';
 import styled from 'styled-components';
-import { PageContext } from '../../App';
+import { AppContext, PageContext } from '../../App';
 import Header from '../Header/Header';
 import noplay from '../images/noplay.png'
 import * as t from '../../store/style-components/GlobalStyle'
@@ -70,17 +70,7 @@ const FavoriteArtist = () => {
         );
     }
 
-    if (artist.length === 0 && !loadingPage) {
-        alert("안녕")
-        return (
-            <t.LoginBackground>
-                <Header />
-                <t.Play src={noplay} />
-            </t.LoginBackground>
-        );
-    }
-
-    if (pageContext.error) {
+    if (pageContext.error && (artist.length === 0 && !loadingPage)) {
         return (
             <div>
                 <e.Status>{errorStatus}</e.Status>
@@ -88,8 +78,18 @@ const FavoriteArtist = () => {
                 <e.Image src={error} />
                 <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
             </div>
-        )
+        );
     }
+
+    if (artist.length === 0 && !loadingPage) {
+        return (
+            <t.LoginBackground>
+                <Header />
+                <t.Play src={noplay} />
+            </t.LoginBackground>
+        );
+    }  
+
 
     return (
         <t.Background background={false}>
