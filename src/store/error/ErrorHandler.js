@@ -5,13 +5,13 @@ export const useErrorHandler = () => {
   const [errorStatus, setErrorStatus] = useState('');
 
   const handleError = (error) => {
+    // alert(error)
     if (error.response) {
       const status = error.response.status;
       if (status === 404) {
         setErrorMessage('Pages not found');
         setErrorStatus(status);
         return {errorMessage, errorStatus}
-        
       } else if (status === 401) {
         setErrorMessage('You do not have access');
         setErrorStatus(status);
@@ -25,9 +25,10 @@ export const useErrorHandler = () => {
         setErrorStatus(status);
         return {errorMessage, errorStatus}
       }
-    } else if (error.request) {
-      setErrorMessage('Unable to access the service');
-      setErrorStatus('Request error');
+    } else if (error == 'AxiosError: Network Error') {
+      setErrorMessage('Network Error!');
+      setErrorStatus(102);
+      return {errorMessage, errorStatus}
     } else {
       setErrorMessage('Something went wrong!')
       setErrorStatus('Unknown error');

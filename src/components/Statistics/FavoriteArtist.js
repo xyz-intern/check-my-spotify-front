@@ -41,14 +41,14 @@ const FavoriteArtist = () => {
         pageContext.setIsLoading(true);
         pageContext.setError(null);
         axios
-            .get(URL.GET_HEARD_ARTISTS)
+            .get(URL.GET_HEARD_ARTISTS, {withCredentials: true})
             .then(response => {
                 setArtist(response.data);
                 pageContext.setIsLoading(false);
                 setLoadingPage(false)
             })
             .catch((error) => {
-                handleError(error);
+                let errorMessage = handleError(error);
                 pageContext.setError(errorMessage);
                 pageContext.setIsLoading(false);
                 setLoadingPage(false)
@@ -57,6 +57,18 @@ const FavoriteArtist = () => {
 
     const HomeNavigate = () => {
         navigate('/')
+    }
+
+
+    if (pageContext.error) {
+        return (
+            <div>
+                <e.Status>{errorStatus}</e.Status>
+                <e.Error>{errorMessage}</e.Error>
+                <e.Image src={error} />
+                <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
+            </div>
+        );
     }
 
     if (pageContext.isLoading && artist.length === 0) {
@@ -70,17 +82,6 @@ const FavoriteArtist = () => {
         );
     }
 
-    if (pageContext.error && (artist.length === 0 && !loadingPage)) {
-        return (
-            <div>
-                <e.Status>{errorStatus}</e.Status>
-                <e.Error>{errorMessage}</e.Error>
-                <e.Image src={error} />
-                <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
-            </div>
-        );
-    }
-
     if (artist.length === 0 && !loadingPage) {
         return (
             <t.LoginBackground>
@@ -89,6 +90,8 @@ const FavoriteArtist = () => {
             </t.LoginBackground>
         );
     }  
+
+ 
 
     return (
         <t.Background background={false}>

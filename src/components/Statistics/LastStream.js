@@ -11,6 +11,7 @@ import * as e from '../../store/style-components/ErrorStyle'
 import error from '../images/error.png';
 import { useNavigate } from 'react-router-dom';
 
+
 const LastStream = () => {
   const pageContext = useContext(PageContext);
   const [lastSong, setLastSong] = useState([]);
@@ -26,14 +27,16 @@ const LastStream = () => {
     pageContext.setIsLoading(true);
     pageContext.setError(null);
     axios
-      .get(URL.GET_LAST_SONG)
+      .get(URL.GET_LAST_SONG, {
+        withCredentials: true
+      })
       .then((response) => {
         setLastSong(response.data);
         pageContext.setIsLoading(false);
         setLoadingPage(false)
       })
       .catch((error) => {
-        handleError(error)
+        let errorMessage = handleError(error)
         pageContext.setError(errorMessage);
         pageContext.setIsLoading(false);
         setLoadingPage(false)
@@ -45,7 +48,8 @@ const LastStream = () => {
     navigate('/')
   }
 
-  if (pageContext.isLoading && lastSong.length === 0) {
+
+  if (lastSong.length === 0 && pageContext.isLoading) {
     return (
       <t.Background background={true}>
         <Header />
@@ -56,16 +60,7 @@ const LastStream = () => {
     )
   }
 
-  if (lastSong.length === 0 && !loadingPage) {
-    return (
-      <t.LoginBackground>
-        <Header />
-        <t.Play src={noplay} />
-      </t.LoginBackground>
-    );
-  }
-
-  if (pageContext.error && (lastSong.length === 0 && !loadingPage)) {
+  if (pageContext.error) {
     return (
       <div>
         <e.Status>{errorStatus}</e.Status>
@@ -74,9 +69,16 @@ const LastStream = () => {
         <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
       </div>
     )
-
   }
-
+  
+  if (lastSong.length === 0 && !loadingPage) {
+    return (
+      <t.LoginBackground>
+        <Header />
+        <t.Play src={noplay} />
+      </t.LoginBackground>
+    );
+  }
 
   return (
     <t.Background background={true}>

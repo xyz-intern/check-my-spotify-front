@@ -22,7 +22,7 @@ function App() {
   const [state, setState] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggin, setIsLoggin] = useState(storedIsLoggedIn);
-  const [error, setError] = useState([]);
+  const [error, setError] = useState('');
   
   useEffect(() => {
     const urlParams = new URL(document.location.toString());
@@ -35,7 +35,7 @@ function App() {
 
   return (
     <AppContext.Provider value={{ code, state, isLoggin, setIsLoggin, setCode }}>
-      <PageContext.Provider value={{ isLoading, setIsLoading, setError, error}}>
+      <PageContext.Provider value={{ isLoading, setIsLoading, error, setError}}>
       <BrowserRouter>
         <Reissue />
         <Routes>

@@ -26,14 +26,15 @@ const MostStream = () => {
     const fetchFavoriteSong = () => {
         pageContext.setIsLoading(true)
         pageContext.setError(null)
-        axios.get(URL.GET_FAVORITE_SONG)
+        axios.get(URL.GET_FAVORITE_SONG,
+            {withCredentials: true})
             .then(response => {
                 setLastSong(response.data);
                 pageContext.setIsLoading(false)
                 setLoadingPage(false)
             })
             .catch(error => {
-                handleError(error)
+                let errorMessage = handleError(error)
                 pageContext.setError(errorMessage);
                 pageContext.setIsLoading(false)
                 setLoadingPage(false)
@@ -44,7 +45,18 @@ const MostStream = () => {
         navigate('/')
     }
 
-    if (pageContext.isLoading && song.length == 0) {
+    if (pageContext.error) {
+        return (
+            <div>
+                <e.Status>{errorStatus}</e.Status>
+                <e.Error>{errorMessage}</e.Error>
+                <e.Image src={error} />
+                <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
+            </div>
+        )
+    }
+
+    if (song.length === 0 && pageContext.isLoading) {
         return (
             <t.Background background={true}>
                 <Header />
@@ -56,8 +68,7 @@ const MostStream = () => {
         )
     }
 
-
-    if (song.length == 0 && !loadingPage) { 
+    if ((song.length == 0 && !loadingPage)) { 
         return (
             <t.LoginBackground>
                 <Header />
@@ -66,17 +77,6 @@ const MostStream = () => {
         );
     }
 
-
-    if (pageContext.error && (song.length === 0 && !loadingPage)) {
-        return (
-            <div>
-                <e.Status>{errorStatus}</e.Status>
-                <e.Error>{errorMessage}</e.Error>
-                <e.Image src={error} />
-                <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
-            </div>
-        )
-    }
 
     return (
         <t.Background background={true}>

@@ -9,6 +9,7 @@ export const Background = styled.div`
     background-attachment:fixed;
     background-size: cover;
     background-repeat: no-repeat; 
+    -ms-overflow-style: none;
 `
 
 export const App = styled.div`
@@ -16,6 +17,10 @@ export const App = styled.div`
   height: 100vh;
   overflow-y: auto;
   position: relative;
+  /* height: 100%; */
+  /* overflow-y: hidden; */
+  -ms-overflow-style: none;
+
 `
 
 export const LoginBackground = styled.div`
