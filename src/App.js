@@ -1,51 +1,54 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import Login from "./components/Login/Login";
 import {
   BrowserRouter,
   Route,
-  Routes,
+  Routes
 } from "react-router-dom";
-import Artist from './components/Statistics/FavoriteArtist/FavoriteArtist'
-import FavoriteSong from './components/Statistics/FavoriteSong/FavoriteSong'
-import LastSong from './components/Statistics/LastSong/LastSong';
-import Header from './components/Header/Header'
+import Artist from './components/Statistics/FavoriteArtist'
+import MostStream from './components/Statistics/MostStream'
+import LastStream from './components/Statistics/LastStream';
 import Redirection from './components/Login/Redirection'
-import styled from 'styled-components';
-import background from './components/images/home.png'
-import PopularArtist from './components/Chart/PopularArtist/PopularArtist';
+import PopularArtist from './components/Chart/PopularArtist';
+import Logout from './components/Login/Logout';
+import Reissue from './components/Login/Reissue';
 
 export const AppContext = createContext();
-export const UserContext = createContext();
-
-const Background = styled.div`
-  background-image: url(${background});
-  width: 100vw;
-  height: 100vh;
-  z-index: 10;
-  background-size: cover ;
-`
+export const PageContext = createContext();
 
 function App() {
-  const [code, setCode] = useState(new URL(document.location.toString()).searchParams.get('code'));
-  const [state, setState] = useState(new URL(document.location.toString()).searchParams.get('state'));
+  const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const [code, setCode] = useState('');
+  const [state, setState] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggin, setIsLoggin] = useState(storedIsLoggedIn);
+  const [error, setError] = useState('');
   
+  useEffect(() => {
+    const urlParams = new URL(document.location.toString());
+    const initialCode = urlParams.searchParams.get('code');
+    const initialState = urlParams.searchParams.get('state');
+
+    if(initialCode) setCode(initialCode);
+    if (initialState) setState(initialState);
+  }, []);
+
   return (
-    <Background>
-       <AppContext.Provider value={code}>
-        <UserContext.Provider value = {state}>
+    <AppContext.Provider value={{ code, state, isLoggin, setIsLoggin, setCode }}>
+      <PageContext.Provider value={{ isLoading, setIsLoading, error, setError}}>
       <BrowserRouter>
-        <Header />
+        <Reissue />
         <Routes>
-          <Route path="/" element={<PopularArtist />} /> {/* 수정된 부분 */}
-          <Route path="/last/song" element={<LastSong />} />
-          <Route path="/favorite/song" element={<FavoriteSong />} />
+          <Route path="/" element={<PopularArtist />} />
+          <Route path="/last/stream" element={<LastStream />} />
+          <Route path="/most/stream" element={<MostStream />} />
           <Route path="/favorite/artist" element={<Artist />} />
-          <Route path="/callback" element={code ? <Redirection /> : <Login />} />
+          <Route path="/callback" element={code ? <Redirection/> : <Login />} />
+          <Route path="/logout" element={<Logout/>} />
         </Routes>
       </BrowserRouter>
-      </UserContext.Provider>
-      </AppContext.Provider>
-    </Background>
+      </PageContext.Provider>
+    </AppContext.Provider>
   );
 }
 

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom'
-import '../Header/Header.css'
 import styled from "styled-components";
+import {AppContext} from '../../App'
 
 const Headers = styled.header`
     top: 0;
@@ -10,36 +10,48 @@ const Headers = styled.header`
     display: flex;
 `
 
-const Li = styled.li`
+const Move = styled.li`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-`
-
-const Text = styled.a`
+  text-decoration: none;
+  a {
     text-decoration: none;
     color: black;
+  }
+`
+
+const LogoutBtn = styled.div`
+    border: none;
+    width: 100px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
 `
 
 const Header = () => {
+    const appContext = useContext(AppContext)
     return (
         <Headers>
-            <Li>
-                <Link to="/last/song"><Text>Last Stream</Text></Link>
-            </Li>
+            <Move>
+                <Link to="/last/stream">Last Stream</Link>
+            </Move>
 
-            <Li>
-                <Link to="/favorite/song"><Text>Most Stream</Text></Link>
-            </Li>
+            <Move>
+                <Link to="/most/stream">Most Stream</Link>
+            </Move>
 
-            <Li>
-                <Link to="/favorite/artist"><Text>FavoriteArtist</Text></Link>
-            </Li>
+            <Move>
+                <Link to="/favorite/artist">FavoriteArtist</Link>
+            </Move>
 
-            <Li>
-                <Link to="/callback"><Text>Login</Text></Link>
-            </Li>
+            <Move>
+                {!appContext.isLoggin? (<Link to="/callback">Login</Link>) : (<Link to = "/logout" ><LogoutBtn>Logout</LogoutBtn></Link>) }
+            </Move>
         </Headers>
     )
 }

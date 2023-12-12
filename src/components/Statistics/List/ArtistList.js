@@ -1,44 +1,38 @@
+import { useContext } from "react";
 import styled from "styled-components";
-import background from '../../images/favorirteArtist.png'
+import { AppContext, PageContext } from "../../../App";
 
-const Background = styled.div`
-  background-image: url(${background});
-  width: 100vw;
-  z-index: 10;
-  opacity: 0.7;
-  background-attachment:fixed;
-`
-
-const Container = styled.div`
-  display: flex;
+const Card = styled.div`
+  width: 356px;
   color: black;
-  flex-wrap: wrap;
-`
+`;
 
-const Text = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 20px;
-    margin-left: 50px;
-`
 const Image = styled.img`
-    width: 300px;
-    height: 330px;
-    margin: 60px;
-`
+  width: 250px;
+  height: 250px;
+  margin: 60px;
+  border-radius: 50%;
+`;
 
 const Artist = styled.div`
-    top: 30px;
-`
+  text-align: center;
+  margin-top: -40px;
+  font-size: 18px;
+  -webkit-text-stroke: 0.2px;
+  margin-left: 13px;
+`;
+
+
 const ArtistList = (props) => {
-    <Background>
-        <Container>
-            <Image src={props.artistImage} />
-            <Text>
-                <Artist>{props.artistName}</Artist>
-            </Text>
-        </Container>
-    </Background>
-}
+  const pageContext = useContext(PageContext)
+  pageContext.setIsLoading(false);
+  return (
+    <Card>
+      <Image src={props.artistImage} />
+      <Artist>{props.artistName}</Artist>
+    </Card>
+    
+  );
+};
+
 export default ArtistList;

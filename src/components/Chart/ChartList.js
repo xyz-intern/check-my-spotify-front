@@ -9,14 +9,13 @@ const Card = styled.div`
      position: relative;
      border-radius: 30px;
      margin: 36px;
-     opacity: 0.6;
+     opacity: 0.8;
      overflow: hidden;
 `
 
 const Image = styled.img`
     width: 400px;
     height: 600px;
-    opacity: 0.9;
     border-radius: 30px;
     object-fit: cover;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -31,8 +30,10 @@ const Rank = styled.div`
     padding: 20px;
     bottom: 20px;
     right: 20px;
-    -webkit-text-stroke: 2px;
+    font-weight: 900;
+    -webkit-text-stroke-widths: 2px;
     z-index: -1;
+    text-shadow: 4px 4px 4px black;
 `
 
 const Artist = styled.div`
@@ -41,7 +42,9 @@ const Artist = styled.div`
     color: white;
     font-size: 50px;
     padding: 20px;
-    -webkit-text-stroke: 2px;
+    font-weight: 900;
+    -webkit-text-stroke-width: 2px;
+    text-shadow: 4px 4px 4px black;
     z-index: -1;
 `
 
@@ -56,7 +59,6 @@ const ChartList = (props) => {
         <App>
             <Card>
                     <Content>
-                        {props.type == 'song' ? (<div>songName: {props.songName}</div>) : ''}
                         <Image src={props.imageUri}></Image>
                         <Artist>{props.artist}</Artist>
                         <Rank># {props.rank}</Rank>
