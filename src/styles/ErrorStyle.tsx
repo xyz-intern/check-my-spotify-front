@@ -4,7 +4,7 @@ export const Error = styled.p`
     position: absolute;
     font-size: 30px;
     top: 50%;
-    left: 35%;
+    left: 33%;
     transform: translate(-50%, -50%);
     text-align: center;
     font-weight: 500;
@@ -42,7 +42,7 @@ export const Home = styled.button`
     border: none;
     position: absolute;
     top: 60%;
-    left: 23%;
+    left: 26%;
     background-color: #007FFF;
     color: white;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);

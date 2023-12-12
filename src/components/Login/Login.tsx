@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import spotify from '../images/spotify.jpg'
 import Header from '../Header/Header';
 import background from '../images/Login.png'
+import React from 'react'
 
 const Background = styled.div`
 background-image: url(${background});

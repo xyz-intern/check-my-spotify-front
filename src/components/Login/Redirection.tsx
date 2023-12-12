@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { useContext } from 'react';
 import { AppContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
-const Redirection = (props) => {
+const Redirection = () => {
   const navigate = useNavigate();
   const appContext = useContext(AppContext);
 
@@ -15,13 +14,13 @@ const Redirection = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await axios.get(`http://localhost:3000/callback?code=${appContext.code}&state=${appContext.state}`, { withCredentials: true });
+        await axios.get(`http://localhost:3000/callback?code=${appContext?.code}&state=${appContext?.state}`, { withCredentials: true });
         setIsThrow(true);
       } catch (error) {
         setIsError(true);
       }
    
-      appContext.setIsLoggin(true);
+      appContext?.setIsLoggin(true);
       localStorage.setItem('isLoggedIn', 'true');
       navigate('/');
     };

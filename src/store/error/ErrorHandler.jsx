@@ -5,7 +5,6 @@ export const useErrorHandler = () => {
   const [errorStatus, setErrorStatus] = useState('');
 
   const handleError = (error) => {
-    // alert(error)
     if (error.response) {
       const status = error.response.status;
       if (status === 404) {

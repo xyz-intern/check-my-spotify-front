@@ -1,15 +1,22 @@
 import { useContext } from "react";
 import styled from "styled-components";
-import { AppContext, PageContext } from "../../../App";
+import { PageContext } from "../../../App";
+import React from "react";
 
+export interface ArtistType {
+  songId: string
+  artistName: string
+  songName: string
+  artistImage: string
+}
 const Card = styled.div`
   width: 356px;
   color: black;
 `;
 
 const Image = styled.img`
-  width: 250px;
-  height: 250px;
+  width: 235px;
+  height: 240px;
   margin: 60px;
   border-radius: 50%;
 `;
@@ -23,15 +30,15 @@ const Artist = styled.div`
 `;
 
 
-const ArtistList = (props) => {
+const ArtistList = ({artist}) => {
   const pageContext = useContext(PageContext)
-  pageContext.setIsLoading(false);
+  pageContext?.setIsLoading(false);
   return (
     <Card>
-      <Image src={props.artistImage} />
-      <Artist>{props.artistName}</Artist>
+      <Image src={artist.artistImage} />
+      <Artist>{artist.artistName}</Artist>
     </Card>
-    
+
   );
 };
 

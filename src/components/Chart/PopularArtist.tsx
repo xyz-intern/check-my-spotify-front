@@ -5,12 +5,14 @@ import styled from 'styled-components';
 import Header from '../Header/Header';
 import background from '../images/home.png'
 import noplay from '../images/noplay.png';
-import { PageContext, pageContext } from '../../App'
-import * as e from '../../store/style-components/ErrorStyle'
-import * as t from '../../store/style-components/GlobalStyle'
+import { PageContext } from '../../App'
+import * as e from '../../styles/ErrorStyle'
+import * as t from '../../styles/GlobalStyle'
 import useErrorHandler from '../../store/error/ErrorHandler';
 import { useNavigate } from 'react-router-dom';
+import URL from '../../store/constant/constant';
 import error from '../images/error.png'
+
 const Background = styled.div`
   background-image: url(${background});
   background-repeat: no-repeat;
@@ -42,11 +44,16 @@ const ScrollItem = styled.div`
     align-items: center;
 `;
 
+export interface ArtistType {
+    rank: string
+    artist: string
+    imageUri: string
+}
 const PopularArtist = () => {
     const pageContext = useContext(PageContext);
     const navigate = useNavigate();
     const scrollRef = useRef(null);
-    const [popularArtist, setPopularArtist] = useState([]);
+    const [popularArtist, setPopularArtist] = useState<ArtistType[]>([]);
     const [slideIndex, setSlideIndex] = useState(0);
     const [loadingPage, setLoadingPage] = useState(true )
 
@@ -65,18 +72,18 @@ const PopularArtist = () => {
 
 
     const fetchLastSong = () => {
-        pageContext.setIsLoading(true);
-        pageContext.setError(null)
-        axios.get('http://192.168.0.133:3000/top/artist')
+        pageContext?.setIsLoading(true);
+        pageContext?.setError(null)
+        axios.get(URL.GET_TOP_ARTISTS)
             .then(response => {
                 setPopularArtist(response.data);
-                pageContext.setIsLoading(false);
+                pageContext?.setIsLoading(false);
                 setLoadingPage(false)
             })
             .catch(error => {
                 let errorMessage = handleError(error)
-                pageContext.setError(errorMessage)
-                pageContext.setIsLoading(false)
+                pageContext?.setError(errorMessage)
+                pageContext?.setIsLoading(false)
                 setLoadingPage(false)
             });
     }
@@ -85,7 +92,7 @@ const PopularArtist = () => {
         navigate('/')
     }
 
-    if (pageContext.error) {
+    if (pageContext?.error) {
         return (
             <div>
                 <e.Status>{errorStatus}</e.Status>
@@ -96,7 +103,7 @@ const PopularArtist = () => {
         )
     }
 
-    if (popularArtist.length === 0 && pageContext.isLoading) {
+    if (popularArtist.length === 0 && pageContext?.isLoading) {
         return (
             <t.Background background={true}>
                 <Header />
@@ -123,12 +130,9 @@ const PopularArtist = () => {
             <ScrollContainer ref={scrollRef}>
                 <Article style={{ transform: `translateX(-${slideIndex * 472}px)` }}>
                     {popularArtist.map((data) => (
-                        <ScrollItem key={data.rank} className='box'>
+                        <ScrollItem key={popularArtist} className='box'>
                             <ChartList
-                                type="artist"
-                                rank={data.rank}
-                                artist={data.artist}
-                                imageUri={data.imageUri}
+                                popularArtist = {popularArtist}
                             />
                         </ScrollItem>
                     ))}

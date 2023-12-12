@@ -50,7 +50,7 @@ const Header = () => {
             </Move>
 
             <Move>
-                {!appContext.isLoggin? (<Link to="/callback">Login</Link>) : (<Link to = "/logout" ><LogoutBtn>Logout</LogoutBtn></Link>) }
+                {!appContext?.isLoggin? (<Link to="/callback">Login</Link>) : (<Link to = "/logout" ><LogoutBtn>Logout</LogoutBtn></Link>) }
             </Move>
         </Headers>
     )
