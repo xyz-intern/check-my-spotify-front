@@ -54,14 +54,14 @@ const Content = styled.div`
     flex-direction: column;
 `
 
-const ChartList = (props) => {
+const ChartList = ({popularArtist}) => {
     return (
         <App>
             <Card>
                     <Content>
-                        <Image src={props.imageUri}></Image>
-                        <Artist>{props.artist}</Artist>
-                        <Rank># {props.rank}</Rank>
+                        <Image src={popularArtist.imageUri}></Image>
+                        <Artist>{popularArtist.artist}</Artist>
+                        <Rank># {popularArtist.rank}</Rank>
                     </Content>
                 </Card>
         </App>

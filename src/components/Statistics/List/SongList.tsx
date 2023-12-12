@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React from "react";
 
 const Container = styled.div`
   display: flex;
@@ -40,18 +41,18 @@ const Count = styled.div`
     -webkit-text-stroke: 1.8px;
 `
 
-function List(props) {
+function List({song}) {
     return (
         <Container>
-            <Image src={props.albumImage} />
+            <Image src={song.albumImage} />
             <Wrapper>
                 <Content1>
-                    <Song>{props.songName}</Song>
-                    {props.artistName}
+                    <Song>{song.songName}</Song>
+                    {song.artistName}
                 </Content1>
                 <Content2>
-                    {props.type == 'song' ? (
-                        <Count>{props.count}</Count>) : ''}
+                    {song.type == 'song' ? (
+                        <Count>{song.count}</Count>) : ''}
                 </Content2>
             </Wrapper>
         </Container>

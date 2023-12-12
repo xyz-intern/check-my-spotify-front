@@ -1,8 +1,9 @@
 import { useContext, useEffect } from "react";
 import { AppContext } from "../../App";
 import axios from "axios";
-import Cookies from "js-cookie";
+import Cookies from "js-cookie"
 import URL from '../../store/constant/constant';
+import React from "react";
 
 const Reissue = () => {
     const appContext = useContext(AppContext);
@@ -12,7 +13,7 @@ const Reissue = () => {
     useEffect(() => { 
         let intervalId;
       
-        if (appContext.isLoggin) {
+        if (appContext?.isLoggin) {
           intervalId = setInterval(reissueToken, 3540000);
         }
       
@@ -21,7 +22,7 @@ const Reissue = () => {
             clearInterval(intervalId);
           }
         };
-      }, [appContext.isLoggin]);
+      }, [appContext?.isLoggin]);
 
 
       const reissueToken = async () => {

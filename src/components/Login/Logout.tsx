@@ -4,8 +4,9 @@ import Cookies from "js-cookie";
 import SPOTIFY from '../../store/constant/constant';
 import axios from "axios";
 import { AppContext } from "../../App";
+import React from "react";
 
-const Logout = (props) => {
+const Logout = () => {
     const navigate = useNavigate();
     const appContext = useContext(AppContext)
     const deleteUserTokenHanlder = () => {
@@ -19,8 +20,8 @@ const Logout = (props) => {
     }
 
     useEffect(() => {
-        appContext.setIsLoggin(false);
-        appContext.setCode('');
+        appContext?.setIsLoggin(false);
+        appContext?.setCode('');
         localStorage.removeItem('isLoggedIn');
         deleteUserTokenHanlder();
         Cookies.remove('userId');

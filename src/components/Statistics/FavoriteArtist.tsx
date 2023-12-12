@@ -4,14 +4,14 @@ import axios from 'axios';
 import URL from '../../store/constant/constant';
 import ArtistList from './List/ArtistList';
 import styled from 'styled-components';
-import { AppContext, PageContext } from '../../App';
+import { PageContext } from '../../App';
 import Header from '../Header/Header';
 import noplay from '../images/noplay.png'
-import * as t from '../../store/style-components/GlobalStyle'
+import * as t from '../../styles/GlobalStyle'
 import ErrorHandler from '../../store/error/ErrorHandler'
 import error from '../images/error.png'
 import { useNavigate } from 'react-router-dom';
-import * as e from '../../store/style-components/ErrorStyle'
+import * as e from '../../styles/ErrorStyle'
 
 const App = styled.div`
   width: 100%;
@@ -26,31 +26,37 @@ const Container = styled.div`
   justify-content: space-evenly;
 `;
 
+export interface ArtistType{
+    songId: string
+    artistName: string
+    songName: string
+    artistImage: string
+}
 const FavoriteArtist = () => {
     const pageContext = useContext(PageContext);
     const navigate = useNavigate();
-    const [artist, setArtist] = useState([]);
-    const { handleError, errorMessage, errorStatus } = ErrorHandler();
+    const [artist, setArtist] = useState<ArtistType[]>([]);
     const [loadingPage, setLoadingPage] = useState(true)
+    const { handleError, errorMessage, errorStatus } = ErrorHandler();
 
     useEffect(() => {
         fetchArtists();
     }, []);
 
     const fetchArtists = () => {
-        pageContext.setIsLoading(true);
-        pageContext.setError(null);
+        pageContext?.setIsLoading(true);
+        pageContext?.setError(null);
         axios
-            .get(URL.GET_HEARD_ARTISTS, {withCredentials: true})
+            .get(URL.GET_HEARD_ARTISTS)
             .then(response => {
                 setArtist(response.data);
-                pageContext.setIsLoading(false);
+                pageContext?.setIsLoading(false);
                 setLoadingPage(false)
             })
             .catch((error) => {
                 let errorMessage = handleError(error);
-                pageContext.setError(errorMessage);
-                pageContext.setIsLoading(false);
+                pageContext?.setError(errorMessage);
+                pageContext?.setIsLoading(false);
                 setLoadingPage(false)
             });
     };
@@ -60,7 +66,7 @@ const FavoriteArtist = () => {
     }
 
 
-    if (pageContext.error) {
+    if (pageContext?.error) {
         return (
             <div>
                 <e.Status>{errorStatus}</e.Status>
@@ -71,7 +77,7 @@ const FavoriteArtist = () => {
         );
     }
 
-    if (pageContext.isLoading && artist.length === 0) {
+    if (pageContext?.isLoading && artist.length === 0) {
         return (
             <t.Background background={false}>
                 <Header />
@@ -91,7 +97,6 @@ const FavoriteArtist = () => {
         );
     }  
 
- 
 
     return (
         <t.Background background={false}>
@@ -100,10 +105,7 @@ const FavoriteArtist = () => {
                 <Container>
                     {artist.map((song) => (
                         <ArtistList
-                            key={song.songId}
-                            artistName={song.artistName}
-                            songName={song.songName}
-                            artistImage={song.artistImage}
+                            artist = {artist}
                         />
                     ))}
                 </Container>

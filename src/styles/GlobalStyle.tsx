@@ -1,26 +1,28 @@
 import styled from "styled-components"
-import nologin from '../../components/images/nologin.png';
-import moststream from '../../components/images/mostStream.png';
-import favoriteartist from "../../components/images/favoriteArtist.png";
+import nologin from '../components/images/nologin.png'
+import moststream from '../components/images/mostStream.png';
+import favoriteartist from "../components/images/favoriteArtist.png";
 
-export const Background = styled.div`
+export interface BackgroundProps {
+    background: true | false
+}
+export const Background = styled.div<BackgroundProps>`
     background-image: ${props => props.background ? `url(${moststream})` : `url(${favoriteartist})`};
     width: 100%;
     background-attachment:fixed;
     background-size: cover;
     background-repeat: no-repeat; 
-    -ms-overflow-style: none;
+    ::-webkit-scrollbar{
+        display: none
+    }
 `
+
 
 export const App = styled.div`
   width: 100%;
   height: 100vh;
   overflow-y: auto;
   position: relative;
-  /* height: 100%; */
-  /* overflow-y: hidden; */
-  -ms-overflow-style: none;
-
 `
 
 export const LoginBackground = styled.div`

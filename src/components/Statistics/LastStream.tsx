@@ -4,19 +4,26 @@ import SongList from './List/SongList';
 import URL from '../../store/constant/constant';
 import Header from '../Header/Header';
 import noplay from '../images/noplay.png'
-import * as t from '../../store/style-components/GlobalStyle'
+import * as t from '../../styles/GlobalStyle'
 import { PageContext } from '../../App';
 import ErrorHandler from '../../store/error/ErrorHandler'
-import * as e from '../../store/style-components/ErrorStyle'
+import * as e from '../../styles/ErrorStyle'
 import error from '../images/error.png';
 import { useNavigate } from 'react-router-dom';
+import React from 'react'
 
+export interface SongType {
+  songId: string
+  artistName: string
+  songName: string
+  albumImage: string
+}
 
 const LastStream = () => {
   const pageContext = useContext(PageContext);
   const [lastSong, setLastSong] = useState([]);
-  const [loadingPage, setLoadingPage] = useState(true)
   const navigate = useNavigate();
+  const [loadingPage, setLoadingPage] = useState(true);
   const { handleError, errorMessage, errorStatus } = ErrorHandler()
 
   useEffect(() => {
@@ -24,21 +31,21 @@ const LastStream = () => {
   }, []);
 
   const fetchLastSong = () => {
-    pageContext.setIsLoading(true);
-    pageContext.setError(null);
+    pageContext?.setIsLoading(true);
+    pageContext?.setError(null);
     axios
       .get(URL.GET_LAST_SONG, {
         withCredentials: true
       })
       .then((response) => {
         setLastSong(response.data);
-        pageContext.setIsLoading(false);
+        pageContext?.setIsLoading(false);
         setLoadingPage(false)
       })
       .catch((error) => {
         let errorMessage = handleError(error)
-        pageContext.setError(errorMessage);
-        pageContext.setIsLoading(false);
+        pageContext?.setError(errorMessage);
+        pageContext?.setIsLoading(false);
         setLoadingPage(false)
       });
 
@@ -49,7 +56,7 @@ const LastStream = () => {
   }
 
 
-  if (lastSong.length === 0 && pageContext.isLoading) {
+  if (lastSong.length === 0 && pageContext?.isLoading) {
     return (
       <t.Background background={true}>
         <Header />
@@ -60,7 +67,7 @@ const LastStream = () => {
     )
   }
 
-  if (pageContext.error) {
+  if (pageContext?.error) {
     return (
       <div>
         <e.Status>{errorStatus}</e.Status>
@@ -86,10 +93,7 @@ const LastStream = () => {
       <t.App>
       {lastSong.map((song) => (
         <SongList
-          key={song.songId}
-          artistName={song.artistName}
-          songName={song.songName}
-          albumImage={song.albumImage}
+          song = {song}
         />
       ))}
       </t.App>

@@ -4,7 +4,7 @@ import App from './App';
 import { CookiesProvider } from "react-cookie";
 import { GlobalStyle } from './globalStyle';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <App />
 );
