@@ -41,10 +41,14 @@ const MostStream = () => {
                 setLoadingPage(false)
             })
             .catch(error => {
-                let errorMessage = handleError(error)
-                pageContext?.setError(errorMessage);
-                pageContext?.setIsLoading(false)
-                setLoadingPage(false)
+                let wjddml = handleError(error)
+                if ( wjddml == undefined ) {
+
+                } else {
+                    pageContext?.setError(wjddml.errorMessage);
+                    pageContext?.setIsLoading(false)
+                    setLoadingPage(false)
+                }
             });
     }
 

@@ -11,7 +11,7 @@ const Reissue = () => {
     let refreshToken;
 
     useEffect(() => { 
-        let intervalId;
+        let intervalId: any;
       
         if (appContext?.isLoggin) {
           intervalId = setInterval(reissueToken, 3540000);
