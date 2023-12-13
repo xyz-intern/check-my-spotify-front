@@ -27,12 +27,12 @@ interface LoginType {
 interface PageType {
   error: undefined
   isLoading: boolean
-  setError: Dispatch<SetStateAction<null | string>>
+  setError: Dispatch<SetStateAction< null | string>>
   setIsLoading: Dispatch<SetStateAction<boolean>>
 }
 
-export const AppContext = createContext<LoginType | null>(null);
-export const PageContext = createContext<PageType | null>(null);
+export const AppContext = createContext<LoginType | undefined>(undefined);
+export const PageContext = createContext<PageType | undefined>(undefined);
 
 function App() {
   const [login, setLogin] : any = useState<LoginType>({
