@@ -2,13 +2,12 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { PageContext } from "../../../App";
 import React from "react";
+import {ArtistType} from '../FavoriteArtist'
 
-export interface ArtistType {
-  songId: string
-  artistName: string
-  songName: string
-  artistImage: string
+ type InfoProps = {
+  song : ArtistType
 }
+
 const Card = styled.div`
   width: 356px;
   color: black;
@@ -30,13 +29,13 @@ const Artist = styled.div`
 `;
 
 
-const ArtistList = ({artist}) => {
+const ArtistList = ({song} : InfoProps) => {
   const pageContext = useContext(PageContext)
   pageContext?.setIsLoading(false);
   return (
     <Card>
-      <Image src={artist.artistImage} />
-      <Artist>{artist.artistName}</Artist>
+      <Image src={song.artistImage} />
+      <Artist>{song.artistName}</Artist>
     </Card>
 
   );

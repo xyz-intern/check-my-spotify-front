@@ -54,7 +54,7 @@ const FavoriteArtist = () => {
                 setLoadingPage(false)
             })
             .catch((error) => {
-                let errorMessage = handleError(error);
+                let message = handleError(error);
                 pageContext?.setError(errorMessage);
                 pageContext?.setIsLoading(false);
                 setLoadingPage(false)
@@ -66,7 +66,7 @@ const FavoriteArtist = () => {
     }
 
 
-    if (pageContext?.error) {
+    if (pageContext?.error !== undefined) {
         return (
             <div>
                 <e.Status>{errorStatus}</e.Status>
@@ -105,7 +105,7 @@ const FavoriteArtist = () => {
                 <Container>
                     {artist.map((song) => (
                         <ArtistList
-                            artist = {artist}
+                            song = {song}
                         />
                     ))}
                 </Container>

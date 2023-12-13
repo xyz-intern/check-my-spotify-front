@@ -49,6 +49,7 @@ export interface ArtistType {
     artist: string
     imageUri: string
 }
+
 const PopularArtist = () => {
     const pageContext = useContext(PageContext);
     const navigate = useNavigate();
@@ -81,8 +82,10 @@ const PopularArtist = () => {
                 setLoadingPage(false)
             })
             .catch(error => {
-                let errorMessage = handleError(error)
+                handleError(error);
+                console.log(pageContext?.error)
                 pageContext?.setError(errorMessage)
+                console.log(pageContext?.error)
                 pageContext?.setIsLoading(false)
                 setLoadingPage(false)
             });
@@ -92,7 +95,7 @@ const PopularArtist = () => {
         navigate('/')
     }
 
-    if (pageContext?.error) {
+    if (pageContext?.error !== undefined) {
         return (
             <div>
                 <e.Status>{errorStatus}</e.Status>
@@ -115,7 +118,7 @@ const PopularArtist = () => {
         )
     }
 
-    if ((popularArtist.length == 0 && !loadingPage)) { 
+    if (popularArtist.length == 0 && !loadingPage) { 
         return (
             <t.LoginBackground>
                 <Header />
@@ -129,10 +132,10 @@ const PopularArtist = () => {
             <Header />
             <ScrollContainer ref={scrollRef}>
                 <Article style={{ transform: `translateX(-${slideIndex * 472}px)` }}>
-                    {popularArtist.map((data) => (
-                        <ScrollItem key={popularArtist} className='box'>
+                    {popularArtist.map((artist) => (
+                        <ScrollItem key={artist.rank} className='box'>
                             <ChartList
-                                popularArtist = {popularArtist}
+                                artist = {artist}
                             />
                         </ScrollItem>
                     ))}
