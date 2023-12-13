@@ -66,7 +66,7 @@ const FavoriteArtist = () => {
     }
 
 
-    if (pageContext?.error !== undefined) {
+    if (pageContext?.error !== null) {
         return (
             <div>
                 <e.Status>{errorStatus}</e.Status>

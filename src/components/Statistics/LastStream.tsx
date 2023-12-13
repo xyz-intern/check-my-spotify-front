@@ -58,7 +58,7 @@ const LastStream = () => {
     navigate('/')
   }
 
-  if (pageContext?.error !== undefined) {
+  if (pageContext?.error !== null) {
     alert("dfldsjfldljfdjfldfjdksjfdsklfjdsklfjsdlk")
     return (
       <div>
