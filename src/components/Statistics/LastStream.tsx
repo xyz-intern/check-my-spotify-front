@@ -10,7 +10,6 @@ import ErrorHandler from '../../store/error/ErrorHandler'
 import * as e from '../../styles/ErrorStyle'
 import error from '../images/error.png';
 import { useNavigate } from 'react-router-dom';
-import React from 'react'
 
 export interface SongType {
   songId: string
@@ -30,7 +29,7 @@ const LastStream = () => {
       fetchLastSong();
   }, []);
 
-  const fetchLastSong = () => {
+  const fetchLastSong = () => { // requests data
     pageContext?.setIsLoading(true);
     pageContext?.setError(null);
     axios
@@ -54,12 +53,11 @@ const LastStream = () => {
 
   };
 
-  const HomeNavigate = () => {
+  const HomeNavigate = () => { // home button
     navigate('/')
   }
 
-  if (pageContext?.error !== null) {
-    alert("dfldsjfldljfdjfldfjdksjfdsklfjdsklfjsdlk")
+  if (pageContext?.error !== null) { // error page
     return (
       <e.ErrorDiv>
         <e.Status>{errorStatus}</e.Status>
@@ -70,8 +68,7 @@ const LastStream = () => {
     )
   }
   
-
-  if (lastSong.length === 0 && pageContext?.isLoading) {
+  if (lastSong.length === 0 && pageContext?.isLoading) { // Loading Page
 
     return (
       <t.Background background={true}>
@@ -83,7 +80,7 @@ const LastStream = () => {
     )
   }
 
-  if (lastSong.length === 0 && !loadingPage) {
+  if (lastSong.length === 0 && !loadingPage) { // no play
     return (
       <t.LoginBackground>
         <Header />
@@ -91,18 +88,17 @@ const LastStream = () => {
       </t.LoginBackground>
     );
   }
-
   return (
     <t.Background background={true}>
       <Header />
-      <t.App>
-      {lastSong.map((song) => (
-        <SongList
+        <t.App>
+        {lastSong.map((song) => (
+          <SongList
           type="stream"
           song = {song}
-        />
-      ))}
-      </t.App>
+          />
+          ))}
+        </t.App>
     </t.Background>
   )
 }
