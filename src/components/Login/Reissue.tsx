@@ -10,9 +10,8 @@ const Reissue = () => {
     let userId;
     let refreshToken;
 
-    useEffect(() => { 
-        let intervalId: any;
-      
+    let intervalId: any;
+    useEffect(() => {       
         if (appContext?.isLoggin) {
           intervalId = setInterval(reissueToken, 3540000);
         }
@@ -35,5 +34,6 @@ const Reissue = () => {
           console.log(error);
         }
       };
+      return null
 }
 export default Reissue;

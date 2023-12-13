@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import React from "react";
+import {SongType} from '../MostStream'
 
+type InfoProps = {
+    song : SongType
+    type: string
+}
 const Container = styled.div`
   display: flex;
   color: black;
@@ -41,7 +46,7 @@ const Count = styled.div`
     -webkit-text-stroke: 1.8px;
 `
 
-function List({song}) {
+function List({song, type}: InfoProps) {
     return (
         <Container>
             <Image src={song.albumImage} />
@@ -51,7 +56,7 @@ function List({song}) {
                     {song.artistName}
                 </Content1>
                 <Content2>
-                    {song.type == 'song' ? (
+                    {type == 'song' ? (
                         <Count>{song.count}</Count>) : ''}
                 </Content2>
             </Wrapper>

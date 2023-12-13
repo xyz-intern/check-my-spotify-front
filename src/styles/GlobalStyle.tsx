@@ -15,12 +15,11 @@ export const Background = styled.div<BackgroundProps>`
     ::-webkit-scrollbar{
         display: none
     }
+    min-height:100%;
 `
-
 
 export const App = styled.div`
   width: 100%;
-  height: 100vh;
   overflow-y: auto;
   position: relative;
 `
