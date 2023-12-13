@@ -13,13 +13,14 @@ import PopularArtist from './components/Chart/PopularArtist';
 import Logout from './components/Login/Logout';
 import Reissue from './components/Login/Reissue'
 import { createContext } from 'react';
+import { GlobalStyle } from './globalStyle';
 
 interface LoginType {
   code: string
   state: string
   isLoggin: boolean
-  setCode: Dispatch<SetStateAction<string>>
-  setState: Dispatch<SetStateAction<string>>
+  setCode: Dispatch<SetStateAction<null | string>>
+  setState: Dispatch<SetStateAction<null | string>>
   setIsLoggin: Dispatch<SetStateAction<boolean>>
 }
 
@@ -34,20 +35,20 @@ export const AppContext = createContext<LoginType | null>(null);
 export const PageContext = createContext<PageType | null>(null);
 
 function App() {
-  const [login, setLogin] = useState<LoginType>({ 
-    code: '', 
+  const [login, setLogin] : any = useState<LoginType>({
+    code: '',
     state: '',
-    isLoggin: false, 
-    setCode: () => {},
-    setState: () => {},
-    setIsLoggin: () => {}
-  });
+    isLoggin: false,
+    setCode: (newCode) => setLogin((prevLogin: LoginType) => ({ ...prevLogin, code: newCode })),
+    setState: (newState) => setLogin((prevLogin: LoginType) => ({ ...prevLogin, state: newState })),
+    setIsLoggin: (newIsLoggin) => setLogin((prevLogin: LoginType) => ({ ...prevLogin, isLoggin: newIsLoggin })),
+});
 
-  const [page, setPage] = useState<PageType>({
+  const [page, setPage] : any= useState<PageType>({
     error: undefined, 
     isLoading: true, 
-    setError: () => {}, 
-    setIsLoading: () => {}
+    setError: (newCode) => setPage((prevPage: PageType) => ({...prevPage, error: newCode})), 
+    setIsLoading: (newCode) => setPage((prevPage: PageType) => ({...prevPage, isLoading: newCode}))
   });
 
   useEffect(() => {
@@ -55,13 +56,15 @@ function App() {
     const initialCode = urlParams.searchParams.get('code');
     const initialState = urlParams.searchParams.get('state');
 
-    if (initialCode) login.setCode(initialCode)
+    if (initialCode) login.setCode(initialCode);
+    
     if (initialState) login.setState(initialState)
   }, []);
 
   return (
     <AppContext.Provider value={login}>
       <PageContext.Provider value={page}>
+        <GlobalStyle />
         <BrowserRouter>
           <Reissue />
           <Routes>

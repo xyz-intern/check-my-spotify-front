@@ -19,6 +19,7 @@ export interface SongType {
     albumImage: string
     count: string
 }
+
 const MostStream = () => {
     const pageContext = useContext(PageContext);
     const [song, setLastSong] = useState<SongType[]>([]);
@@ -41,7 +42,7 @@ const MostStream = () => {
                 setLoadingPage(false)
             })
             .catch(error => {
-                let errorMessage = handleError(error)
+                handleError(error)
                 pageContext?.setError(errorMessage);
                 pageContext?.setIsLoading(false)
                 setLoadingPage(false)
@@ -52,14 +53,14 @@ const MostStream = () => {
         navigate('/')
     }
 
-    if (pageContext?.error) {
+    if (pageContext?.error !== null) {
         return (
-            <div>
+            <e.ErrorDiv>
                 <e.Status>{errorStatus}</e.Status>
                 <e.Error>{errorMessage}</e.Error>
                 <e.Image src={error} />
                 <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
-            </div>
+            </e.ErrorDiv>
         )
     }
 
@@ -90,9 +91,9 @@ const MostStream = () => {
             <t.App>
                 {song.map((song) => (
                     <SongList
-                    song = {song}
+                        type="song"
+                        song={song}
                     />
-
                 ))}
             </t.App>
         </t.Background>

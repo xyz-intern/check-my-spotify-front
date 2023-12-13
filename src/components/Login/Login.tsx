@@ -47,7 +47,7 @@ const Logins = styled.button`
 `;
 
 const Login = () => {
-  function generateRandomString(length) {
+  function generateRandomString(length: number) {
     let result = '';
     let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     for (let i = 0; i < length; i++) {

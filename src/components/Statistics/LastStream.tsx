@@ -43,8 +43,11 @@ const LastStream = () => {
         setLoadingPage(false)
       })
       .catch((error) => {
-        let errorMessage = handleError(error)
+        console.log("들어오잖아")
+        handleError(error)
+        console.log(pageContext?.error)
         pageContext?.setError(errorMessage);
+        console.log(pageContext?.error)
         pageContext?.setIsLoading(false);
         setLoadingPage(false)
       });
@@ -55,8 +58,21 @@ const LastStream = () => {
     navigate('/')
   }
 
+  if (pageContext?.error !== null) {
+    alert("dfldsjfldljfdjfldfjdksjfdsklfjdsklfjsdlk")
+    return (
+      <e.ErrorDiv>
+        <e.Status>{errorStatus}</e.Status>
+        <e.Error>{errorMessage}</e.Error>
+        <e.Image src={error} />
+        <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
+      </e.ErrorDiv>
+    )
+  }
+  
 
   if (lastSong.length === 0 && pageContext?.isLoading) {
+
     return (
       <t.Background background={true}>
         <Header />
@@ -67,17 +83,6 @@ const LastStream = () => {
     )
   }
 
-  if (pageContext?.error) {
-    return (
-      <div>
-        <e.Status>{errorStatus}</e.Status>
-        <e.Error>{errorMessage}</e.Error>
-        <e.Image src={error} />
-        <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
-      </div>
-    )
-  }
-  
   if (lastSong.length === 0 && !loadingPage) {
     return (
       <t.LoginBackground>
@@ -93,6 +98,7 @@ const LastStream = () => {
       <t.App>
       {lastSong.map((song) => (
         <SongList
+          type="stream"
           song = {song}
         />
       ))}

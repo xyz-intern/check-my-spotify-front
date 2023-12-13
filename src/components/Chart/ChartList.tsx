@@ -1,5 +1,9 @@
 import styled from "styled-components"
+import {ArtistType} from '../Chart/PopularArtist'
 
+type InfoProps = {
+    artist : ArtistType
+}
 const App = styled.div`
     display: inline-block;
 `
@@ -54,14 +58,14 @@ const Content = styled.div`
     flex-direction: column;
 `
 
-const ChartList = ({popularArtist}) => {
+const ChartList = ({artist}: InfoProps) => {
     return (
         <App>
             <Card>
                     <Content>
-                        <Image src={popularArtist.imageUri}></Image>
-                        <Artist>{popularArtist.artist}</Artist>
-                        <Rank># {popularArtist.rank}</Rank>
+                        <Image src={artist.imageUri}></Image>
+                        <Artist>{artist.artist}</Artist>
+                        <Rank># {artist.rank}</Rank>
                     </Content>
                 </Card>
         </App>
