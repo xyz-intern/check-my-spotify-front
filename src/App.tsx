@@ -13,6 +13,7 @@ import PopularArtist from './components/Chart/PopularArtist';
 import Logout from './components/Login/Logout';
 import Reissue from './components/Login/Reissue'
 import { createContext } from 'react';
+import { GlobalStyle } from './globalStyle';
 
 interface LoginType {
   code: string
@@ -63,6 +64,7 @@ function App() {
   return (
     <AppContext.Provider value={login}>
       <PageContext.Provider value={page}>
+        <GlobalStyle />
         <BrowserRouter>
           <Reissue />
           <Routes>

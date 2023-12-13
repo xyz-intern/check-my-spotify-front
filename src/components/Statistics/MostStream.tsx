@@ -55,12 +55,12 @@ const MostStream = () => {
 
     if (pageContext?.error !== null) {
         return (
-            <div>
+            <e.ErrorDiv>
                 <e.Status>{errorStatus}</e.Status>
                 <e.Error>{errorMessage}</e.Error>
                 <e.Image src={error} />
                 <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
-            </div>
+            </e.ErrorDiv>
         )
     }
 
