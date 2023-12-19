@@ -4,20 +4,23 @@ import { useContext } from 'react';
 import { AppContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
+export interface TransferType{
+  isThrow: boolean
+  isError: boolean
+}
 const Redirection = () => {
   const navigate = useNavigate();
   const appContext = useContext(AppContext);
 
-  const [isThrow, setIsThrow] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [transfer, setTransfer] = useState<TransferType>();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await axios.get(`http://localhost:3000/callback?code=${appContext?.code}&state=${appContext?.state}`, { withCredentials: true });
-        setIsThrow(true);
+        setTransfer({isThrow: true, isError: false})
       } catch (error) {
-        setIsError(true);
+        setTransfer({isThrow: false, isError: true})
       }
    
       appContext?.setIsLoggin(true);
@@ -30,7 +33,7 @@ const Redirection = () => {
 
   return (
     <div>
-      <div>{isThrow ? (isError ? "데이터를 전송 중입니다." : "에러 발생") : "데이터를 성공적으로 전송하였습니다."}</div>
+      <div>{transfer?.isThrow ? (transfer?.isError ? "데이터를 전송 중입니다." : "에러 발생") : "데이터를 성공적으로 전송하였습니다."}</div>
     </div>
   );
 };

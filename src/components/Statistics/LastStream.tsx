@@ -8,7 +8,7 @@ import * as t from '../../styles/GlobalStyle'
 import { PageContext } from '../../App';
 import ErrorHandler from '../../store/error/ErrorHandler'
 import * as e from '../../styles/ErrorStyle'
-import error from '../images/error.png';
+import errorImage from '../images/error.png';
 import { useNavigate } from 'react-router-dom';
 
 export interface SongType {
@@ -23,11 +23,11 @@ const LastStream = () => {
   const [lastSong, setLastSong] = useState([]);
   const navigate = useNavigate();
   const [loadingPage, setLoadingPage] = useState(true);
-  const { handleError, errorMessage, errorStatus } = ErrorHandler()
+  const { handleError, error } = ErrorHandler()
 
   useEffect(() => {
       fetchLastSong();
-  }, []);
+  }, [lastSong]);
 
   const fetchLastSong = () => { // requests data
     pageContext?.setIsLoading(true);
@@ -42,11 +42,8 @@ const LastStream = () => {
         setLoadingPage(false)
       })
       .catch((error) => {
-        console.log("들어오잖아")
         handleError(error)
-        console.log(pageContext?.error)
-        pageContext?.setError(errorMessage);
-        console.log(pageContext?.error)
+        pageContext?.setError(error.errorMessage);
         pageContext?.setIsLoading(false);
         setLoadingPage(false)
       });
@@ -60,9 +57,9 @@ const LastStream = () => {
   if (pageContext?.error !== null) { // error page
     return (
       <e.ErrorDiv>
-        <e.Status>{errorStatus}</e.Status>
-        <e.Error>{errorMessage}</e.Error>
-        <e.Image src={error} />
+        <e.Status>{error?.errorStatus}</e.Status>
+        <e.Error>{error?.errorMessage}</e.Error>
+        <e.Image src={errorImage} />
         <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
       </e.ErrorDiv>
     )
@@ -102,6 +99,4 @@ const LastStream = () => {
     </t.Background>
   )
 }
-
-
 export default LastStream;

@@ -9,7 +9,7 @@ import * as t from '../../styles/GlobalStyle'
 import ErrorHandler from '../../store/error/ErrorHandler'
 import * as e from '../../styles/ErrorStyle'
 import { useNavigate } from "react-router-dom";
-import error from '../images/error.png';
+import errorImage from '../images/error.png';
 import React from "react";
 
 export interface SongType {
@@ -25,11 +25,11 @@ const MostStream = () => {
     const [song, setLastSong] = useState<SongType[]>([]);
     const navigate = useNavigate();
     const [loadingPage, setLoadingPage] = useState(true)
-    const { handleError, errorMessage, errorStatus } = ErrorHandler();
+    const { handleError, error } = ErrorHandler();
 
     useEffect(() => {
         fetchFavoriteSong();
-    }, []);
+    }, [song]);
 
     const fetchFavoriteSong = () => {
         pageContext?.setIsLoading(true)
@@ -43,7 +43,7 @@ const MostStream = () => {
             })
             .catch(error => {
                 handleError(error)
-                pageContext?.setError(errorMessage);
+                pageContext?.setError(error?.errorMessage);
                 pageContext?.setIsLoading(false)
                 setLoadingPage(false)
             });
@@ -56,9 +56,9 @@ const MostStream = () => {
     if (pageContext?.error !== null) {
         return (
             <e.ErrorDiv>
-                <e.Status>{errorStatus}</e.Status>
-                <e.Error>{errorMessage}</e.Error>
-                <e.Image src={error} />
+                <e.Status>{error?.errorStatus}</e.Status>
+                <e.Error>{error?.errorMessage}</e.Error>
+                <e.Image src={errorImage} />
                 <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
             </e.ErrorDiv>
         )

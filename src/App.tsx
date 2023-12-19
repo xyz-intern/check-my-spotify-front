@@ -16,39 +16,44 @@ import { createContext } from 'react';
 import { GlobalStyle } from './globalStyle';
 
 interface LoginType {
-  code: string
-  state: string
+  code: string | null
+  state: string | null
   isLoggin: boolean
-  setCode: Dispatch<SetStateAction<null | string>>
-  setState: Dispatch<SetStateAction<null | string>>
+  setCode: Dispatch<SetStateAction<string | null>>
+  setState: Dispatch<SetStateAction<string | null>>
   setIsLoggin: Dispatch<SetStateAction<boolean>>
 }
 
 interface PageType {
-  error: undefined
+  error: string | null
   isLoading: boolean
-  setError: Dispatch<SetStateAction< null | string>>
+  setError: Dispatch<SetStateAction<string | null>>
   setIsLoading: Dispatch<SetStateAction<boolean>>
+  loadingPage: boolean
+  setLoadingPage: Dispatch<SetStateAction<boolean>>
 }
 
 export const AppContext = createContext<LoginType | undefined>(undefined);
 export const PageContext = createContext<PageType | undefined>(undefined);
 
 function App() {
-  const [login, setLogin] : any = useState<LoginType>({
-    code: '',
-    state: '',
-    isLoggin: false,
+  const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  const [login, setLogin]: any = useState<LoginType>({
+    code: null,
+    state: null,
+    isLoggin: storedIsLoggedIn,
     setCode: (newCode) => setLogin((prevLogin: LoginType) => ({ ...prevLogin, code: newCode })),
     setState: (newState) => setLogin((prevLogin: LoginType) => ({ ...prevLogin, state: newState })),
     setIsLoggin: (newIsLoggin) => setLogin((prevLogin: LoginType) => ({ ...prevLogin, isLoggin: newIsLoggin })),
-});
+  });
 
-  const [page, setPage] : any= useState<PageType>({
-    error: undefined, 
+  const [page, setPage]: any = useState<PageType>({
+    error: null, 
     isLoading: true, 
-    setError: (newCode) => setPage((prevPage: PageType) => ({...prevPage, error: newCode})), 
-    setIsLoading: (newCode) => setPage((prevPage: PageType) => ({...prevPage, isLoading: newCode}))
+    setError: (code) => setPage((prevPage: PageType) => ({...prevPage, error: code})), 
+    setIsLoading: (code) => setPage((prevPage: PageType) => ({...prevPage, isLoading: code})),
+    loadingPage: true,
+    setLoadingPage: ((code) => setPage((prevPage: PageType) => ({...prevPage, loadingPage: code})))
   });
 
   useEffect(() => {
@@ -57,7 +62,6 @@ function App() {
     const initialState = urlParams.searchParams.get('state');
 
     if (initialCode) login.setCode(initialCode);
-    
     if (initialState) login.setState(initialState)
   }, []);
 

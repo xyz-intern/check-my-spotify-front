@@ -4,6 +4,7 @@ import {ArtistType} from '../Chart/PopularArtist'
 type InfoProps = {
     artist : ArtistType
 }
+
 const App = styled.div`
     display: inline-block;
 `

@@ -17,7 +17,7 @@ export const Status = styled.p`
     font-size: 250px;
     font-weight: 900;
     background: linear-gradient(176deg, #a9a9a9, #E8E9EB);
-        background-clip: border-box;
+    background-clip: border-box;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

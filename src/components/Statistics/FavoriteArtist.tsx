@@ -9,7 +9,7 @@ import Header from '../Header/Header';
 import noplay from '../images/noplay.png'
 import * as t from '../../styles/GlobalStyle'
 import ErrorHandler from '../../store/error/ErrorHandler'
-import error from '../images/error.png'
+import errorImage from '../images/error.png'
 import { useNavigate } from 'react-router-dom';
 import * as e from '../../styles/ErrorStyle'
 
@@ -29,19 +29,19 @@ const Container = styled.div`
 export interface ArtistType{
     songId: string
     artistName: string
-    songName: string
     artistImage: string
 }
+
 const FavoriteArtist = () => {
     const pageContext = useContext(PageContext);
     const navigate = useNavigate();
     const [artist, setArtist] = useState<ArtistType[]>([]);
     const [loadingPage, setLoadingPage] = useState(true)
-    const { handleError, errorMessage, errorStatus } = ErrorHandler();
+    const { handleError, error } = ErrorHandler();
 
     useEffect(() => {
         fetchArtists();
-    }, []);
+    }, [artist]);
 
     const fetchArtists = () => {
         pageContext?.setIsLoading(true);
@@ -54,8 +54,9 @@ const FavoriteArtist = () => {
                 setLoadingPage(false)
             })
             .catch((error) => {
-                let message = handleError(error);
-                pageContext?.setError(errorMessage);
+                setTimeout(() => {})
+                handleError(error);
+                pageContext?.setError(error?.errorMessage);
                 pageContext?.setIsLoading(false);
                 setLoadingPage(false)
             });
@@ -69,15 +70,15 @@ const FavoriteArtist = () => {
     if (pageContext?.error !== null) {
         return (
             <e.ErrorDiv>
-                <e.Status>{errorStatus}</e.Status>
-                <e.Error>{errorMessage}</e.Error>
-                <e.Image src={error} />
+                <e.Status>{error?.errorStatus}</e.Status>
+                <e.Error>{error?.errorMessage}</e.Error>
+                <e.Image src={errorImage} />
                 <e.Home onClick={HomeNavigate}>Go to Homepage</e.Home>
             </e.ErrorDiv>
         );
     }
 
-    if (pageContext?.isLoading && artist.length === 0) {
+    if (artist.length === 0 && pageContext?.isLoading) {
         return (
             <t.Background background={false}>
                 <Header />

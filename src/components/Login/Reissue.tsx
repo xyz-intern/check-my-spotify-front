@@ -7,13 +7,13 @@ import React from "react";
 
 const Reissue = () => {
     const appContext = useContext(AppContext);
-    let userId;
-    let refreshToken;
+    let userId: string;
+    let refreshToken: string;
 
     let intervalId: any;
     useEffect(() => {       
         if (appContext?.isLoggin) {
-          intervalId = setInterval(reissueToken, 3540000);
+          intervalId = setInterval(reissueToken, 3530000);
         }
       
         return () => {

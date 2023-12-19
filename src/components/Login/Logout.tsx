@@ -28,8 +28,6 @@ const Logout = () => {
         Cookies.remove('refreshToken');
         Cookies.remove('connect.sid');
         navigate('/');
-        alert('로그아웃이 완료되었습니다.');
-
     })
     return null;
 }
