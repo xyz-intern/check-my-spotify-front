@@ -27,7 +27,7 @@ const LastStream = () => {
 
   useEffect(() => {
       fetchLastSong();
-  }, [lastSong]);
+  }, []);
 
   const fetchLastSong = () => { // requests data
     pageContext?.setIsLoading(true);

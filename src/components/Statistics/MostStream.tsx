@@ -29,7 +29,7 @@ const MostStream = () => {
 
     useEffect(() => {
         fetchFavoriteSong();
-    }, [song]);
+    }, []);
 
     const fetchFavoriteSong = () => {
         pageContext?.setIsLoading(true)

@@ -115,7 +115,6 @@ const PopularArtist = () => {
       </t.LoginBackground>
     );
   }
-  console.log("여기들어옴")
 
   return (
     

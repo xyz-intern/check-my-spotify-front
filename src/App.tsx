@@ -66,6 +66,7 @@ function App() {
   }, []);
 
   return (
+    <>
     <AppContext.Provider value={login}>
       <PageContext.Provider value={page}>
         <GlobalStyle />
@@ -82,6 +83,7 @@ function App() {
         </BrowserRouter>
       </PageContext.Provider>
     </AppContext.Provider>
+    </>
   );
 }
 export default App;

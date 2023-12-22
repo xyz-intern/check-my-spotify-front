@@ -28,7 +28,7 @@ const Reissue = () => {
         try {
           refreshToken = Cookies.get('refreshToken');
           userId = Cookies.get('userId');
-          alert(`${URL.TOKEN_REISSUE}`)
+          // alert(`${URL.TOKEN_REISSUE}`)
           await axios.post(`${URL.TOKEN_REISSUE}`, { refreshToken: refreshToken, userId: userId, withCredentials: true });
         } catch (error) {
           console.log(error);

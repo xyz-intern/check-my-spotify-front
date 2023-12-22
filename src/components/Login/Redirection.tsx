@@ -11,7 +11,6 @@ export interface TransferType{
 const Redirection = () => {
   const navigate = useNavigate();
   const appContext = useContext(AppContext);
-
   const [transfer, setTransfer] = useState<TransferType>();
 
   useEffect(() => {

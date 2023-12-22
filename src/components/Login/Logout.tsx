@@ -27,6 +27,7 @@ const Logout = () => {
         Cookies.remove('userId');
         Cookies.remove('refreshToken');
         Cookies.remove('connect.sid');
+        alert("로그아웃 되었습니다.")
         navigate('/');
     })
     return null;

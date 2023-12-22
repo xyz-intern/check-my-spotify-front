@@ -4,7 +4,7 @@ import axios from 'axios';
 import URL from '../../store/constant/constant';
 import ArtistList from './List/ArtistList';
 import styled from 'styled-components';
-import { PageContext } from '../../App';
+import { AppContext, PageContext } from '../../App';
 import Header from '../Header/Header';
 import noplay from '../images/noplay.png'
 import * as t from '../../styles/GlobalStyle'
@@ -12,6 +12,7 @@ import ErrorHandler from '../../store/error/ErrorHandler'
 import errorImage from '../images/error.png'
 import { useNavigate } from 'react-router-dom';
 import * as e from '../../styles/ErrorStyle'
+import Cookies from "js-cookie";
 
 const App = styled.div`
   width: 100%;
@@ -41,20 +42,24 @@ const FavoriteArtist = () => {
 
     useEffect(() => {
         fetchArtists();
-    }, [artist]);
+    }, []);
 
     const fetchArtists = () => {
+        const userId = Cookies.get("userId");
         pageContext?.setIsLoading(true);
         pageContext?.setError(null);
         axios
-            .get(URL.GET_HEARD_ARTISTS)
+        .get(URL.GET_HEARD_ARTISTS, {
+            params: {
+                userId: userId
+            }
+        })
             .then(response => {
                 setArtist(response.data);
                 pageContext?.setIsLoading(false);
                 setLoadingPage(false)
             })
             .catch((error) => {
-                setTimeout(() => {})
                 handleError(error);
                 pageContext?.setError(error?.errorMessage);
                 pageContext?.setIsLoading(false);
